@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/back.png</file>
+        <file>img/mario_large.png</file>
+        <file>img/mario_giant.png</file>
+        <file>img/mario_normal.png</file>
+        <file>img/mario_tiny.png</file>
+    </qresource>
+</RCC>
