@@ -23,8 +23,6 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent* event);
-    void keyPressEvent(QKeyEvent* event);
-    void keyReleaseEvent(QKeyEvent* event);
     void scroll();
 
 private:

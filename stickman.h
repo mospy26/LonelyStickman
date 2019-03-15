@@ -25,7 +25,6 @@ public:
     unsigned int getYPosition() const;
     void setXPosition(unsigned int position);
     void setYPosition(unsigned int position);
-    void movePlayer(bool moveUp, bool moveRight, bool moveLeft, unsigned int groundLevel);
 
 private:
     unsigned int m_size;
