@@ -59,3 +59,19 @@ void Stickman::setYPosition(unsigned int position)
 {
     this->m_Y = position;
 }
+
+void Stickman::movePlayer(bool moveUp, bool moveRight, bool moveLeft, unsigned int groundLevel)
+{
+    if(moveLeft)
+        this->m_X -= 8;
+    if(moveRight)
+        this->m_X += 8;
+    if(moveUp)
+        this->m_Y -= 6;
+    if(!moveUp)
+        this->m_Y += 6;
+    if(this->m_X <= 2)
+        this->m_X -= 2;
+    if(this->m_Y >= groundLevel)
+        this->m_Y = groundLevel;
+}

@@ -64,29 +64,11 @@ void Dialog::paintEvent(QPaintEvent* event)
     if(offset <= -this->m_level->getFrameWidth())
         offset = 0;
 
-    if(moveLeft)
-        this->m_level->getStickman().setXPosition(this->m_level->getStickman().getXPosition() - 8);
-
-    if(moveRight)
-        this->m_level->getStickman().setXPosition(this->m_level->getStickman().getXPosition() + 8);
-
-    if(moveUp)
-        this->m_level->getStickman().setYPosition(this->m_level->getStickman().getYPosition() - 6);
-
-    if(!moveUp)
-        this->m_level->getStickman().setYPosition(this->m_level->getStickman().getYPosition() + 6);
-
-    if(this->m_level->getStickman().getXPosition() <= 2)
-        this->m_level->getStickman().setXPosition(2);
-
-    if(this->m_level->getStickman().getYPosition() >=
-            m_level->getFrameHeight() -
-            m_level->getFloorBase() -
-            m_level->getStickman().getImageHeight())
-
-        m_level->getStickman().setYPosition(m_level->getFrameHeight() -
+    this->m_level->getStickman().movePlayer(moveUp, moveRight, moveLeft,
+                                            m_level->getFrameHeight() -
                                             m_level->getFloorBase() -
                                             m_level->getStickman().getImageHeight());
+
     painter.drawImage(this->m_level->getStickman().getXPosition(),
                       this->m_level->getStickman().getYPosition(),
                       this->m_level->getStickman().getImage());
