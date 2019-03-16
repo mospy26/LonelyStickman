@@ -6,9 +6,6 @@
 #include <QPolygon>
 #include <QKeyEvent>
 
-bool moveRight = false;
-bool moveLeft = false;
-bool moveUp = false;
 int offset = 0;
 const int screenVelocity = 10;
 
@@ -65,34 +62,9 @@ void Dialog::paintEvent(QPaintEvent* event)
     if(offset <= -this->m_level->getFrameWidth())
         offset = 0;
 
-    this->m_level->getStickman().movePlayer(moveUp, moveRight, moveLeft,
-                                            m_level->getFrameHeight() -
-                                            m_level->getFloorBase() -
-                                            m_level->getStickman().getImageHeight());
-
     painter.drawImage(this->m_level->getStickman().getXPosition(),
                       this->m_level->getStickman().getYPosition(),
                       this->m_level->getStickman().getImage());
-}
-
-void Dialog::keyReleaseEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Right)
-        moveRight = false;
-    if(event->key() == Qt::Key_Left)
-        moveLeft = false;
-    if(event->key() == Qt::Key_Up)
-        moveUp = false;
-}
-
-void Dialog::keyPressEvent(QKeyEvent* event)
-{
-    if(event->key() == Qt::Key_Right)
-        moveRight = true;
-    if(event->key() == Qt::Key_Left)
-        moveLeft = true;
-    if(event->key() == Qt::Key_Up)
-        moveUp = true;
 }
 
 void Dialog::scroll()
