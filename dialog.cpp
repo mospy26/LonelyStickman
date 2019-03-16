@@ -4,11 +4,7 @@
 #include <QImage>
 #include <QPainter>
 #include <QPolygon>
-#include <QKeyEvent>
 
-bool moveRight = false;
-bool moveLeft = false;
-bool moveUp = false;
 int offset = 0;
 const int screenVelocity = 10;
 
