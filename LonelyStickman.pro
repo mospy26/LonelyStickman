@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+#QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,14 +27,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        dialog.cpp \
     stickman.cpp \
-    level.cpp
+    level.cpp \
+    dialog.cpp
 
 HEADERS += \
-        dialog.h \
-    stickman.h \
-    level.h
+    level.h \
+    dialog.h \
+    stickman.h
 
 FORMS += \
         dialog.ui

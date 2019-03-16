@@ -18,6 +18,7 @@ Dialog::Dialog(QWidget *parent)
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
     timer->start(32);
+    this->m_level->playMusic();
 }
 
 Dialog::Dialog(Level* level, QWidget *parent)
