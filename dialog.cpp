@@ -21,17 +21,26 @@ Dialog::Dialog(QWidget *parent)
     this->m_level->playMusic();
 }
 
-Dialog::Dialog(Level* level, QWidget *parent)
+Dialog::Dialog(const std::string& background, const std::string& size, const std::string& music, QWidget *parent)
     : QDialog(parent),
-    ui(new Ui::Dialog),
-    m_level(level)
+    ui(new Ui::Dialog)
 {
+    //convert string to size
+    SizeType stickmanSize;
+    if(size == "tiny") stickmanSize = SizeType::TINY;
+    if(size == "normal") stickmanSize = SizeType::NORMAL;
+    if(size == "large") stickmanSize = SizeType::LARGE;
+    if(size == "giant") stickmanSize = SizeType::GIANT;
+
+    m_level = new Level(background, stickmanSize, music);
+
     ui->setupUi(this);
     this->update();
     this->setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
     timer->start(32);
+    this->m_level->playMusic();
 }
 
 Dialog::~Dialog()

@@ -1,9 +1,10 @@
 #ifndef DIALOG_H
 #define DIALOG_H
 
+#include "level.h"
+
 #include <QDialog>
 #include <QTimer>
-#include "level.h"
 
 namespace Ui {
 class Dialog;
@@ -15,7 +16,7 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = nullptr);
-    explicit Dialog(Level* level, QWidget *parent = nullptr);
+    explicit Dialog(const std::string& background, const std::string& size, const std::string& music, QWidget *parent = nullptr);
     ~Dialog();
 
 public slots:

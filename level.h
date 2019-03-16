@@ -1,19 +1,18 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+#include "stickman.h"
+
 #include <QImage>
 #include <string>
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
-#include "stickman.h"
 
 class Level
 {
 public:
     Level();
-    Level(const std::string& backgroundLocation, SizeType size);
-    Level(const QImage& background, SizeType size);
-    Level(const QImage& background, Stickman* stickman);
+    Level(const std::string& backgroundLocation, SizeType size, const std::string& musicLocation);
     ~Level();
 
     const QImage& getBackground() const;

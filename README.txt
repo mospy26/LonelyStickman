@@ -6,3 +6,6 @@ The style of this project is based off the Google C++ style (https://google.gith
 4. camelCase is used instead of snake_case
 5. Curly braces open in next line for functions, classes, enums or structs. For conditional flow and loops, they open in line!
  //explicit must be used for single arguments
+
+6. Config files have the following format:
+    key=value
