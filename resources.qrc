@@ -5,7 +5,6 @@
         <file>img/mario_giant.png</file>
         <file>img/mario_normal.png</file>
         <file>img/mario_tiny.png</file>
-        <file>music/part2.mp3</file>
         <file>dialog.cpp</file>
         <file>dialog.h</file>
         <file>level.cpp</file>

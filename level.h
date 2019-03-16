@@ -3,6 +3,7 @@
 
 #include <QImage>
 #include <string>
+#include <QMediaPlaylist>
 #include <QMediaPlayer>
 #include "stickman.h"
 
@@ -25,6 +26,7 @@ public:
 private:
     QImage m_background;
     Stickman* m_stickman;
+    QMediaPlaylist* m_playlist;
     QMediaPlayer* m_music;
     const unsigned int m_frameHeight = 572;
     const unsigned int m_frameWidth = 1487 - 300;
