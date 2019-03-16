@@ -31,7 +31,7 @@ private:
     const unsigned int m_frameHeight = 572;
     const unsigned int m_frameWidth = 1487 - 300;
     const unsigned int m_floorBase = 40;
-    //stickman.positiony = frame width - floor base - m_stickman->current base
+
 };
 
 #endif // LEVEL_H
