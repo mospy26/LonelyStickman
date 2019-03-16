@@ -22,6 +22,7 @@ Dialog::Dialog(QWidget *parent)
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
     timer->start(32);
+    this->m_level->playMusic();
 }
 
 Dialog::Dialog(Level* level, QWidget *parent)
@@ -56,6 +57,7 @@ void Dialog::paintEvent(QPaintEvent* event)
     QPainter painter(this);
 
     scroll();
+    this->m_level->playMusic();
 
     painter.drawImage(offset, 0, this->m_level->getBackground(), 0, 0, this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
 
