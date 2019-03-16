@@ -31,7 +31,6 @@ private:
     const unsigned int m_frameHeight = 572;
     const unsigned int m_frameWidth = 1487 - 300;
     const unsigned int m_floorBase = 40;
-
 };
 
 #endif // LEVEL_H
