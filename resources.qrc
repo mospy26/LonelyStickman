@@ -5,13 +5,7 @@
         <file>img/mario_giant.png</file>
         <file>img/mario_normal.png</file>
         <file>img/mario_tiny.png</file>
-        <file>dialog.cpp</file>
-        <file>dialog.h</file>
-        <file>level.cpp</file>
-        <file>level.h</file>
-        <file>main.cpp</file>
-        <file>stickman.cpp</file>
-        <file>stickman.h</file>
+        <file>.config</file>
         <file>music/part1.mp3</file>
     </qresource>
 </RCC>
