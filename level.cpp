@@ -67,6 +67,5 @@ const QImage& Level::getBackground() const
 void Level::playMusic()
 {
     this->m_music->setPlaylist(this->m_playlist);
-    if(this->m_music->state() == QMediaPlayer::StoppedState)
-        this->m_music->play();
+    this->m_music->play();
 }

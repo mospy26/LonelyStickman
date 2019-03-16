@@ -57,7 +57,6 @@ void Dialog::paintEvent(QPaintEvent* event)
     QPainter painter(this);
 
     scroll();
-    this->m_level->playMusic();
 
     painter.drawImage(offset, 0, this->m_level->getBackground(), 0, 0, this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
 
