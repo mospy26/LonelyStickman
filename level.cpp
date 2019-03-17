@@ -1,6 +1,9 @@
 #include "level.h"
 #include <iostream>
 
+int offset = 0;
+int screenVelocity = 20;
+
 Level::Level()
     : m_background(":/img/back.png"), m_stickman(new Stickman()), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
 {
@@ -9,8 +12,8 @@ Level::Level()
     m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
 }
 
-Level::Level(const std::string& backgroundLocation, SizeType size, const std::string& musicLocation)
-    : m_background(QImage(backgroundLocation.c_str())), m_stickman(new Stickman(size)), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
+Level::Level(const std::string& backgroundLocation, SizeType size, int initialX, const std::string& musicLocation)
+    : m_background(QImage(backgroundLocation.c_str())), m_stickman(new Stickman(size, initialX, 0)), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
 {
     this->m_playlist->addMedia(QUrl(musicLocation.c_str()));
     this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
@@ -34,19 +37,27 @@ unsigned int Level::getFrameHeight() const
     return this->m_frameHeight;
 }
 
-unsigned int Level::getFloorBase() const
-{
-    return this->m_floorBase;
-}
-
-Stickman& Level::getStickman() const
-{
-    return *this->m_stickman;
-}
-
 const QImage& Level::getBackground() const
 {
     return this->m_background;
+}
+
+void Level::moveBackground(QPainter& painter)
+{
+    painter.drawImage(offset, 0, m_background, 0, 0, m_frameWidth, m_frameHeight);
+    painter.drawImage(m_frameWidth + offset, 0, m_background, 0, 0, m_frameWidth, m_frameHeight);
+
+    if(offset <= -m_frameWidth)
+        offset = 0;
+
+    offset -= screenVelocity;
+
+}
+
+void Level::placeStickman(QPainter &painter, bool moveUp, bool moveRight, bool moveLeft)
+{
+    m_stickman->movePlayer(moveUp, moveRight, moveLeft, m_frameHeight - m_floorBase- m_stickman->getImageHeight());
+    painter.drawImage(m_stickman->getXPosition(), m_stickman->getYPosition(), m_stickman->getImage());
 }
 
 void Level::playMusic()

@@ -5,6 +5,9 @@
 
 #include <QDialog>
 #include <QTimer>
+#include <QImage>
+#include <QPolygon>
+#include <QKeyEvent>
 
 namespace Ui {
 class Dialog;
@@ -16,7 +19,11 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = nullptr);
-    explicit Dialog(const std::string& background, const std::string& size, const std::string& music, QWidget *parent = nullptr);
+    explicit Dialog(const std::string& background,
+                        const std::string& size,
+                        const std::string& music,
+                        int initialX,
+                        QWidget *parent = nullptr);
     ~Dialog();
 
 public slots:
@@ -26,7 +33,6 @@ protected:
     void paintEvent(QPaintEvent* event);
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void scroll();
 
 private:
     Ui::Dialog *ui;

@@ -12,7 +12,12 @@ int main(int argc, char *argv[])
     QDir::setCurrent(QCoreApplication::applicationDirPath());
     ConfigParser parser(":.config");
 
-    Dialog w(parser[Configuration::BACKGROUND], parser[Configuration::SIZE], parser[Configuration::MUSIC], nullptr);
+    Dialog w(parser[Configuration::BACKGROUND],
+                parser[Configuration::SIZE],
+                parser[Configuration::MUSIC],
+                std::stoi(parser[Configuration::INITIAL_X]),
+                nullptr);
+
     w.show();
 
     return a.exec();

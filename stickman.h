@@ -15,7 +15,7 @@ class Stickman
 {
 public:
     Stickman();
-    Stickman(enum SizeType size, int X = 5, int Y = 0);
+    Stickman(enum SizeType size, int X, int Y = 0);
 
     ~Stickman();
 

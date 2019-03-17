@@ -4,6 +4,7 @@
 #include "stickman.h"
 
 #include <QImage>
+#include <QPainter>
 #include <string>
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
@@ -12,14 +13,14 @@ class Level
 {
 public:
     Level();
-    Level(const std::string& backgroundLocation, SizeType size, const std::string& musicLocation);
+    Level(const std::string& backgroundLocation, SizeType size, int initialX, const std::string& musicLocation);
     ~Level();
 
     const QImage& getBackground() const;
     unsigned int getFrameWidth() const;
     unsigned int getFrameHeight() const;
-    unsigned int getFloorBase() const;
-    Stickman& getStickman() const;
+    void moveBackground(QPainter& painter);
+    void placeStickman(QPainter& painter, bool moveUp, bool moveRight, bool moveLeft);
     void playMusic();
 
 private:
