@@ -31,6 +31,8 @@ ConfigParser::ConfigParser(const QString& filePath)
               case Configuration::MUSIC:
                   m_dictionary[Configuration::MUSIC] = value;
                   break;
+              default:
+                 break;
           }
        }
     }
