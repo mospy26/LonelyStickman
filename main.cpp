@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
                 parser[Configuration::SIZE],
                 parser[Configuration::MUSIC],
                 std::stoi(parser[Configuration::INITIAL_X]),
+                std::stoi(parser[Configuration::INITIAL_VELOCITY]),
                 nullptr);
 
     w.show();

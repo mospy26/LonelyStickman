@@ -22,6 +22,7 @@ Dialog::Dialog(const std::string& background,
                     const std::string& size,
                     const std::string& music,
                     int initialX,
+                    int initialVelocity,
                     QWidget *parent)
     : QDialog(parent),
     ui(new Ui::Dialog)
@@ -33,7 +34,7 @@ Dialog::Dialog(const std::string& background,
     if(size == "large") stickmanSize = SizeType::LARGE;
     if(size == "giant") stickmanSize = SizeType::GIANT;
 
-    m_level = new Level(background, stickmanSize, initialX, music);
+    m_level = new Level(background, stickmanSize, initialX, initialVelocity,  music);
 
     ui->setupUi(this);
     this->update();
