@@ -22,6 +22,7 @@ public:
                         const std::string& size,
                         const std::string& music,
                         int initialX,
+                        int initialVelcity,
                         QWidget *parent = nullptr);
     ~Dialog();
 

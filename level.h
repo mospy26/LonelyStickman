@@ -13,7 +13,7 @@ class Level
 {
 public:
     Level();
-    Level(const std::string& backgroundLocation, SizeType size, int initialX, const std::string& musicLocation);
+    Level(const std::string& backgroundLocation, SizeType size, int initialX, int screenVelocity, const std::string& musicLocation);
     ~Level();
 
     const QImage& getBackground() const;
@@ -25,6 +25,7 @@ public:
 
 private:
     QImage m_background;
+    int m_screenVelocity;
     Stickman* m_stickman;
     QMediaPlaylist* m_playlist;
     QMediaPlayer* m_music;
