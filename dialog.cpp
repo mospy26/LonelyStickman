@@ -9,33 +9,11 @@ Dialog::Dialog(QWidget *parent)
     : ui(new Ui::Dialog),
       m_level(new Level())
 {
-    ui->setupUi(this);
-    this->update();
-    this->setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
-    timer->start(32);
-    this->m_level->playMusic();
-}
-
-Dialog::Dialog(const std::string& background,
-                    const std::string& size,
-                    const std::string& music,
-                    int initialX,
-                    int initialVelocity,
-                    QWidget *parent)
-    : QDialog(parent),
-    ui(new Ui::Dialog)
-{
-    //convert string to size
-    SizeType stickmanSize;
-    if(size == "tiny") stickmanSize = SizeType::TINY;
-    if(size == "normal") stickmanSize = SizeType::NORMAL;
-    if(size == "large") stickmanSize = SizeType::LARGE;
-    if(size == "giant") stickmanSize = SizeType::GIANT;
-
-    m_level = new Level(background, stickmanSize, initialX, initialVelocity,  music);
-
+    try {
+        parseConfigFile();
+    } catch(const char* error) {
+        std::cout << error << std::endl;
+    }
     ui->setupUi(this);
     this->update();
     this->setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
@@ -59,12 +37,43 @@ void Dialog::nextFrame()
 void Dialog::paintEvent(QPaintEvent* event)
 {
 
-    //background = background.scaled(FRAME_WIDTH, FRAME_HEIGHT, Qt::KeepAspectRatio);
+    //background = background.scaled(FRAME_WIDTH, FRAME_HEIGHT, Qt::IgnoreAspectRatio);
 
     QPainter painter(this);
 
     m_level->moveBackground(painter);
     m_level->placeStickman(painter, moveUp, moveRight, moveLeft);
+}
+
+void Dialog::parseConfigFile(QString filepath)
+{
+    QFile file(filepath);
+    file.open(QIODevice::ReadOnly);
+
+    QJsonDocument configFile(QJsonDocument::fromJson(file.readAll()));
+    file.close();
+    QJsonObject parser = configFile.object();
+
+    std::cout << parser["size"].toString().toUtf8().constData() << std::endl;
+
+    if(parser["size"].toString() == nullptr)            throw "size not stated";
+    if(parser["initialX"].toString() == nullptr)        throw "initialX not stated";
+    if(parser["initialVelocity"].toString() == nullptr) throw "initial velocity not stated";
+    if(parser["background"].toString() == nullptr)      throw "background not stated";
+    if(parser["music"].toString() == nullptr)           throw "music not stated";
+
+    //convert string to size
+    SizeType stickmanSize;
+    if(parser["size"].toString() == "tiny")     stickmanSize = SizeType::TINY;
+    if(parser["size"].toString() == "normal")   stickmanSize = SizeType::NORMAL;
+    if(parser["size"].toString() == "large")    stickmanSize = SizeType::LARGE;
+    if(parser["size"].toString() == "giant")    stickmanSize = SizeType::GIANT;
+
+    m_level = new Level(parser["background"].toString(),
+                            stickmanSize,
+                            parser["initialX"].toString().toInt(),
+                            parser["initialVelocity"].toString().toInt(),
+                            parser["music"].toString());
 }
 
 void Dialog::keyReleaseEvent(QKeyEvent *event)

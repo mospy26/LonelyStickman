@@ -13,7 +13,7 @@ class Level
 {
 public:
     Level();
-    Level(const std::string& backgroundLocation, SizeType size, int initialX, int screenVelocity, const std::string& musicLocation);
+    Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation);
     ~Level();
 
     const QImage& getBackground() const;

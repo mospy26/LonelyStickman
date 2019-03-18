@@ -11,10 +11,10 @@ Level::Level()
     m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
 }
 
-Level::Level(const std::string& backgroundLocation, SizeType size, int initialX, int screenVelocity, const std::string& musicLocation)
-    : m_background(QImage(backgroundLocation.c_str())), m_screenVelocity(screenVelocity), m_stickman(new Stickman(size, initialX, 0)), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
+Level::Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation)
+    : m_background(QImage(backgroundLocation)), m_screenVelocity(screenVelocity), m_stickman(new Stickman(size, initialX, 0)), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
 {
-    this->m_playlist->addMedia(QUrl(musicLocation.c_str()));
+    this->m_playlist->addMedia(QUrl(musicLocation));
     this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
     m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
 }

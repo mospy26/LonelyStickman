@@ -5,9 +5,12 @@
 
 #include <QDialog>
 #include <QTimer>
-#include <QImage>
 #include <QPolygon>
 #include <QKeyEvent>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
+#include <iostream>
 
 namespace Ui {
 class Dialog;
@@ -19,12 +22,6 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = nullptr);
-    explicit Dialog(const std::string& background,
-                        const std::string& size,
-                        const std::string& music,
-                        int initialX,
-                        int initialVelcity,
-                        QWidget *parent = nullptr);
     ~Dialog();
 
 public slots:
@@ -32,6 +29,7 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent* event);
+    void parseConfigFile(QString filepath = ":.config");
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
 
