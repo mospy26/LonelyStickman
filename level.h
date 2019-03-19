@@ -8,6 +8,7 @@
 #include <string>
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
+#include <QDir>
 
 class Level
 {

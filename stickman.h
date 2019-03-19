@@ -2,6 +2,8 @@
 #define STICKMAN_H
 
 #include <QImage>
+#include <QDir>
+#include <QString>
 
 enum SizeType
 {

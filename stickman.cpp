@@ -9,23 +9,25 @@ Stickman::Stickman(enum SizeType size, int X, int Y)
     std::string file;
     switch (size) {
         case SizeType::TINY:
-            file = "mario_tiny";
+            file = "mario_tiny.png";
             this->m_imageHeight = 34;
             break;
         case SizeType::NORMAL:
-            file = "mario_normal";
+            file = "mario_normal.png";
             this->m_imageHeight = 56;
             break;
         case SizeType::LARGE:
-            file = "mario_large";
+            file = "mario_large.png";
             this->m_imageHeight = 83;
             break;
         case SizeType::GIANT:
-            file = "mario_giant";
+            file = "mario_giant.png";
             this->m_imageHeight = 109;
             break;
     }
-    m_image = QImage(QString(":/img/") + QString(file.c_str()));
+    QDir imagePath = QDir::currentPath();
+    imagePath.cd("../../../../LonelyStickman/img");
+    m_image = QImage(imagePath.path().append("/").append(file.c_str()));
 }
 
 Stickman::~Stickman() {}
