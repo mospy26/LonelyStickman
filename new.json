@@ -1,0 +1,7 @@
+{
+    "background": ":/img/back.png",
+    "initialVelocity": "57",
+    "initialX": "0",
+    "music": "qrc:/music/part1.mp3",
+    "size": "tiny"
+}

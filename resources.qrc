@@ -5,7 +5,7 @@
         <file>img/mario_giant.png</file>
         <file>img/mario_normal.png</file>
         <file>img/mario_tiny.png</file>
-        <file>.config</file>
+        <file>config.json</file>
         <file>music/part1.mp3</file>
     </qresource>
 </RCC>

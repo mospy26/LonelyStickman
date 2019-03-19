@@ -30,13 +30,15 @@ SOURCES += \
     stickman.cpp \
     level.cpp \
     dialog.cpp \
-    newconfiguration.cpp
+    newconfiguration.cpp \
+    saveform.cpp
 
 HEADERS += \
     level.h \
     dialog.h \
     stickman.h \
-    newconfiguration.h
+    newconfiguration.h \
+    saveform.h
 
 FORMS += \
         dialog.ui

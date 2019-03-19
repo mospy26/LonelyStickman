@@ -1,5 +1,5 @@
 #include "dialog.h"
-#include "configparser.h"
+#include "newconfiguration.h"
 
 #include <QApplication>
 #include <iostream>
@@ -10,11 +10,12 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QDir::setCurrent(QCoreApplication::applicationDirPath());
-    //ConfigParser parser(":.config");
 
-    Dialog w;
+    NewConfiguration n;
+    n.show();
 
-    w.show();
+    //Dialog w(QString(":config.json"));
+    //w.show();
 
     return a.exec();
 }

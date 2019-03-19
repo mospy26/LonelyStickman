@@ -21,7 +21,7 @@ class Dialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit Dialog(QWidget *parent = nullptr);
+    explicit Dialog(const QString& configFilePath, QWidget *parent = nullptr);
     ~Dialog();
 
 public slots:
@@ -29,7 +29,7 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent* event);
-    void parseConfigFile(QString filepath = ":.config");
+    void parseConfigFile(QString filepath);
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
 

@@ -3,5 +3,5 @@
     "initialX" : "20",
     "initialVelocity" : "50",
     "background" : ":/img/back.png",
-    "music" : ":/music/part1.mp3"
+    "music" : "qrc:/music/part1.mp3"
 }
