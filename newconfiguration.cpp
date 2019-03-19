@@ -83,6 +83,7 @@ void NewConfiguration::setPlayButton()
 
 void NewConfiguration::play()
 {
+    this->close();
     m_game = new Dialog(m_configPath, nullptr);
     m_game->show();
 }
