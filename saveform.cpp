@@ -60,7 +60,7 @@ void SaveForm::loadObjects()
     m_initialVelocityError->setGeometry(400, 160, 100, 30);
 
     m_sizeComboBox->setGeometry(500, 100, 100, 30);
-
+  
     m_sizeComboBox->addItem("---");
     m_sizeComboBox->addItem("tiny");
     m_sizeComboBox->addItem("normal");
@@ -87,9 +87,7 @@ bool SaveForm::isValidInput()
         m_sizeError->setText("<font color='red'>Choose Size!</font>");
         isValid = false;
     }
-    else {
-        m_sizeError->hide();
-    }
+    else m_sizeError->hide();
 
     try {
         int data = std::stoi(m_initialXEdit->text().toUtf8().constData());
