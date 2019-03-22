@@ -5,15 +5,10 @@ bool moveRight = false;
 bool moveLeft = false;
 bool moveUp = false;
 
-Dialog::Dialog(const QString& configFilePath, QWidget *parent)
+Dialog::Dialog(const QJsonObject& parser, QWidget *parent)
     : ui(new Ui::Dialog)
 {
-    try {
-        parseConfigFile(configFilePath);
-    } catch(const char* error) {
-        std::cout << error << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    parse(parser);
     ui->setupUi(this);
     this->update();
     this->setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
@@ -45,33 +40,14 @@ void Dialog::paintEvent(QPaintEvent* event)
     m_level->placeStickman(painter, moveUp, moveRight, moveLeft);
 }
 
-void Dialog::parseConfigFile(QString filepath)
+void Dialog::parse(const QJsonObject& parser)
 {
-    QFile file(filepath);
-    file.open(QIODevice::ReadOnly);
-
-    QJsonDocument configFile(QJsonDocument::fromJson(file.readAll()));
-    file.close();
-    QJsonObject parser = configFile.object();
-
-    if(parser["size"].toString() == nullptr || parser["size"].toString() == "")
-        throw "size not stated";
-    if(parser["initialX"].toString() == nullptr || parser["initialX"].toString() == "")
-        throw "initialX not stated";
-    if(parser["initialVelocity"].toString() == nullptr || parser["initialVelocity"].toString()  == "")
-        throw "initial velocity not stated";
-    if(parser["background"].toString() == nullptr || parser["background"].toString() == "")
-        throw "background not stated";
-    if(parser["music"].toString() == nullptr || parser["music"].toString() == "")
-        throw "music not stated";
-
     //convert string to size
     SizeType stickmanSize;
     if(parser["size"].toString() == "tiny")     stickmanSize = SizeType::TINY;
     else if(parser["size"].toString() == "normal")   stickmanSize = SizeType::NORMAL;
     else if(parser["size"].toString() == "large")    stickmanSize = SizeType::LARGE;
-    else if(parser["size"].toString() == "giant")    stickmanSize = SizeType::GIANT;
-    else throw "Size is invalid";
+    else stickmanSize = SizeType::GIANT;
 
     m_level = new Level(parser["background"].toString(),
                             stickmanSize,

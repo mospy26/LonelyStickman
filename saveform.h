@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QLabel>
+#include <QComboBox>
 #include <QButtonGroup>
 #include <QPushButton>
 #include <QFileDialog>
@@ -21,6 +22,7 @@ public:
     ~SaveForm();
     void loadObjects();
     bool isValidInput(); //check for invalid properties in config file
+    void hideErrorLabels();
 
 public slots:
     void saveConfig();
@@ -36,7 +38,7 @@ private:
     QLabel* m_initialXError;
     QLabel* m_initialVelocityError;
 
-    QLineEdit* m_sizeEdit;
+    QComboBox* m_sizeComboBox;
     QLineEdit* m_initialXEdit;
     QLineEdit* m_initialVelocityEdit;
     QLineEdit* m_backgroundEdit;

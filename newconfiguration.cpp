@@ -4,7 +4,8 @@ NewConfiguration::NewConfiguration(QWidget *parent)
     : m_successLoad(new QLabel("", this)),
       m_loadConfiguration(new QPushButton("Load Game", this)),
       m_saveConfiguration(new QPushButton("Save Game", this)),
-      m_playButton(new QPushButton("Play", this))
+      m_playButton(new QPushButton("Play", this)),
+      m_parser()
 {
     m_playButton->hide(); //hide until loaded config file successfully
 
@@ -59,8 +60,14 @@ void NewConfiguration::clickedLoadConfiguration()
             file.errorString());
             return;
         }
-        m_configPath = file.fileName();
-        setPlayButton();
+        try {
+            m_parser = parseConfigFile(file.fileName());
+        } catch(const char* error) {
+            std::cout << error << std::endl;
+            m_successLoad->setText("<font color='red'>Cannot load config file </font>");
+            return;
+        }
+        connect(m_playButton, SIGNAL(released()), this, SLOT(play()));
     }
 }
 
@@ -77,13 +84,41 @@ void NewConfiguration::setPlayButton()
    m_playButton->setGeometry(400, 250, 200, 80);
 
    m_successLoad->setGeometry(420, 350, 200, 50);
-   m_successLoad->setText("Loaded Config Successfully");
-   connect(m_playButton, SIGNAL(released()), this, SLOT(play()));
+   m_successLoad->setText("<font color='green'>Loaded Config Successfully</font>");
+}
+
+QJsonObject NewConfiguration::parseConfigFile(const QString &filepath)
+{
+    QFile file(filepath);
+    file.open(QIODevice::ReadOnly);
+
+    QJsonDocument configFile(QJsonDocument::fromJson(file.readAll()));
+    file.close();
+    QJsonObject parser = configFile.object();
+
+    if(parser["size"].toString() == nullptr || (parser["size"].toString() != "tiny"
+                                                && parser["size"].toString() != "normal"
+                                                && parser["size"].toString() != "large"
+                                                && parser["size"].toString() != "giant"))
+        throw "size not stated";
+    if(parser["initialX"].toString() == nullptr || parser["initialX"].toString() == "")
+        throw "initialX not stated";
+    if(parser["initialVelocity"].toString() == nullptr || parser["initialVelocity"].toString()  == "")
+        throw "initial velocity not stated";
+    if(parser["background"].toString() == nullptr || parser["background"].toString() == "")
+        throw "background not stated";
+    if(parser["music"].toString() == nullptr || parser["music"].toString() == "")
+        throw "music not stated";
+
+    if(parser["size"] == "---")
+        throw "size not chosen!";
+
+    return parser;
 }
 
 void NewConfiguration::play()
 {
     this->close();
-    m_game = new Dialog(m_configPath, nullptr);
+    m_game = new Dialog(m_parser, nullptr);
     m_game->show();
 }

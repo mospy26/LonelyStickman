@@ -17,6 +17,7 @@ public:
     ~NewConfiguration();
     void loadObjects();
     void setPlayButton();
+    QJsonObject parseConfigFile(const QString& filepath);
 
 public slots:
     void clickedLoadConfiguration();
@@ -30,7 +31,7 @@ private:
     QPushButton* m_loadConfiguration;
     QPushButton* m_saveConfiguration;
 
-    QString m_configPath;
+    QJsonObject m_parser;
 
     SaveForm* m_saveDialog;
     Dialog* m_game;
