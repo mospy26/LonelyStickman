@@ -22,6 +22,7 @@ public:
     ~SaveForm();
     void loadObjects();
     bool isValidInput(); //check for invalid properties in config file
+    void hideErrorLabels();
 
 public slots:
     void saveConfig();

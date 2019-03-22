@@ -60,6 +60,7 @@ void SaveForm::loadObjects()
     m_initialVelocityError->setGeometry(400, 160, 100, 30);
 
     m_sizeComboBox->setGeometry(500, 100, 100, 30);
+  
     m_sizeComboBox->addItem("---");
     m_sizeComboBox->addItem("tiny");
     m_sizeComboBox->addItem("normal");
@@ -70,6 +71,13 @@ void SaveForm::loadObjects()
     m_initialVelocityEdit->setGeometry(500, 160, 100, 30);
     m_backgroundEdit->setGeometry(500, 190, 100, 30);
     m_musicEdit->setGeometry(500, 220, 100, 30);
+}
+
+void SaveForm::hideErrorLabels()
+{
+    m_sizeError->hide();
+    m_initialXError->hide();
+    m_initialVelocityError->hide();
 }
 
 bool SaveForm::isValidInput()
@@ -92,6 +100,7 @@ bool SaveForm::isValidInput()
 
     try {
         int data = std::stoi(m_initialVelocityEdit->text().toUtf8().constData());
+        m_initialXError->hide();
         if(data < 0) throw std::invalid_argument("Error");
     } catch(const std::invalid_argument& error) {
         m_initialVelocityError->setText("<font color='red'>Invalid velocity</font>");
