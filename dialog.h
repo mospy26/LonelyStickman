@@ -4,6 +4,7 @@
 #include "level.h"
 
 #include <QDialog>
+#include <QFile>
 #include <QTimer>
 #include <QPolygon>
 #include <QKeyEvent>

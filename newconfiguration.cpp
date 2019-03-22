@@ -64,9 +64,11 @@ void NewConfiguration::clickedLoadConfiguration()
             m_parser = parseConfigFile(file.fileName());
         } catch(const char* error) {
             std::cout << error << std::endl;
+            m_successLoad->setGeometry(420, 350, 200, 50);
             m_successLoad->setText("<font color='red'>Cannot load config file </font>");
             return;
         }
+        setPlayButton();
         connect(m_playButton, SIGNAL(released()), this, SLOT(play()));
     }
 }
