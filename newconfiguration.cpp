@@ -66,6 +66,7 @@ void NewConfiguration::clickedLoadConfiguration()
             std::cout << error << std::endl;
             m_successLoad->setGeometry(420, 350, 200, 50);
             m_successLoad->setText("<font color='red'>Cannot load config file </font>");
+            m_playButton->hide();
             return;
         }
         setPlayButton();
