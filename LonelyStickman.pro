@@ -31,14 +31,19 @@ SOURCES += \
     level.cpp \
     dialog.cpp \
     newconfiguration.cpp \
-    saveform.cpp
+    saveform.cpp \
+    mario.cpp \
+    mariocreator.cpp
 
 HEADERS += \
     level.h \
     dialog.h \
     stickman.h \
     newconfiguration.h \
-    saveform.h
+    saveform.h \
+    gamebuilder.h \
+    mario.h \
+    mariocreator.h
 
 FORMS += \
         dialog.ui

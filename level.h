@@ -15,7 +15,12 @@ class Level
 public:
     Level();
     Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation);
+    Level(Stickman* stickman, const QString& backgroundLocation, int screenVelcoity, const QString& musicLocation);
     ~Level();
+
+    Level(Level&& other);
+
+    Level& operator =(Level&& other);
 
     const QImage& getBackground() const;
     unsigned int getFrameWidth() const;

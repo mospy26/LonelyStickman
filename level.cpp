@@ -4,7 +4,10 @@
 int offset = 0;
 
 Level::Level()
-    : m_background(":/img/back.png"), m_stickman(new Stickman()), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
+    : m_background(":/img/back.png"),
+      m_stickman(new Stickman()),
+      m_playlist(new QMediaPlaylist()),
+      m_music(new QMediaPlayer())
 {
     this->m_playlist->addMedia(QUrl("qrc:/music/part1.mp3"));
     this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
@@ -12,7 +15,10 @@ Level::Level()
 }
 
 Level::Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation)
-    : m_screenVelocity(screenVelocity), m_stickman(new Stickman(size, initialX, 0)), m_playlist(new QMediaPlaylist()), m_music(new QMediaPlayer())
+    : m_screenVelocity(screenVelocity),
+      m_stickman(new Stickman(size, initialX, 0)),
+      m_playlist(new QMediaPlaylist()),
+      m_music(new QMediaPlayer())
 {
 
     QDir musicPath = QDir::currentPath();
@@ -25,6 +31,50 @@ Level::Level(const QString& backgroundLocation, SizeType size, int initialX, int
     this->m_playlist->addMedia(QUrl::fromLocalFile(musicPath.path().append("/" + musicLocation)));
     this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
     m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
+}
+
+Level::Level(Stickman* stickman, const QString& backgroundLocation, int screenVelcoity, const QString& musicLocation)
+    : m_screenVelocity(screenVelcoity),
+      m_stickman(new Stickman()),
+      m_playlist(new QMediaPlaylist()),
+      m_music(new QMediaPlayer())
+{
+  *m_stickman = std::move(*stickman);
+  QDir musicPath = QDir::currentPath();
+  QDir imagePath = QDir::currentPath();
+
+  musicPath.cd("../../../../LonelyStickman/music");
+  imagePath.cd("../../../../LonelyStickman/img");
+
+  m_background = QImage(imagePath.path().append("/" + backgroundLocation));
+  this->m_playlist->addMedia(QUrl::fromLocalFile(musicPath.path().append("/" + musicLocation)));
+  this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+  m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
+}
+
+Level::Level(Level&& other)
+    : m_background(other.m_background.copy()),
+      m_screenVelocity(other.m_screenVelocity),
+      m_stickman(std::move(other.m_stickman)),
+      m_playlist(other.m_playlist),
+      m_music(other.m_music)
+{
+    other.m_stickman = nullptr;
+    other.m_music = nullptr;
+    other.m_playlist = nullptr;
+}
+
+Level& Level::operator =(Level&& other)
+{
+    this->m_background = other.m_background.copy();
+    this->m_screenVelocity = other.m_screenVelocity;
+    this->m_stickman = std::move(other.m_stickman);
+    this->m_playlist = other.m_playlist;
+    this->m_music = other.m_music;
+    other.m_stickman = nullptr;
+    other.m_music = nullptr;
+    other.m_playlist = nullptr;
+    return *this;
 }
 
 Level::~Level()

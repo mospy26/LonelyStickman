@@ -26,6 +26,7 @@ NewConfiguration::~NewConfiguration()
     delete m_playButton;
     delete m_game;
     delete m_saveDialog;
+    delete m_parser;
 }
 
 void NewConfiguration::loadObjects()
@@ -61,7 +62,7 @@ void NewConfiguration::clickedLoadConfiguration()
             return;
         }
         try {
-            m_parser = parseConfigFile(file.fileName());
+            parseConfigFile(file.fileName());
         } catch(const char* error) {
             std::cout << error << std::endl;
             m_successLoad->setGeometry(420, 350, 200, 50);
@@ -90,38 +91,40 @@ void NewConfiguration::setPlayButton()
    m_successLoad->setText("<font color='green'>Loaded Config Successfully</font>");
 }
 
-QJsonObject NewConfiguration::parseConfigFile(const QString &filepath)
+void NewConfiguration::parseConfigFile(const QString &filepath)
 {
     QFile file(filepath);
     file.open(QIODevice::ReadOnly);
 
     QJsonDocument configFile(QJsonDocument::fromJson(file.readAll()));
     file.close();
-    QJsonObject parser = configFile.object();
+    m_parser = new QJsonObject(configFile.object());
 
-    if(parser["size"].toString() == nullptr || (parser["size"].toString() != "tiny"
-                                                && parser["size"].toString() != "normal"
-                                                && parser["size"].toString() != "large"
-                                                && parser["size"].toString() != "giant"))
+    if((*m_parser)["size"].toString() == nullptr || ((*m_parser)["size"].toString() != "tiny"
+                                                && (*m_parser)["size"].toString() != "normal"
+                                                && (*m_parser)["size"].toString() != "large"
+                                                && (*m_parser)["size"].toString() != "giant"))
         throw "size not stated";
-    if(parser["initialX"].toString() == nullptr || parser["initialX"].toString() == "")
+    if((*m_parser)["initialX"].toString() == nullptr || (*m_parser)["initialX"].toString() == "")
         throw "initialX not stated";
-    if(parser["initialVelocity"].toString() == nullptr || parser["initialVelocity"].toString()  == "")
+    if((*m_parser)["initialVelocity"].toString() == nullptr || (*m_parser)["initialVelocity"].toString()  == "")
         throw "initial velocity not stated";
-    if(parser["background"].toString() == nullptr || parser["background"].toString() == "")
+    if((*m_parser)["background"].toString() == nullptr || (*m_parser)["background"].toString() == "")
         throw "background not stated";
-    if(parser["music"].toString() == nullptr || parser["music"].toString() == "")
+    if((*m_parser)["music"].toString() == nullptr || (*m_parser)["music"].toString() == "")
         throw "music not stated";
 
-    if(parser["size"] == "---")
+    if((*m_parser)["size"] == "---")
         throw "size not chosen!";
 
-    return parser;
 }
 
 void NewConfiguration::play()
 {
     this->close();
-    m_game = new Dialog(m_parser, nullptr);
+    Mario mario(*m_parser);
+    MarioCreator marioCreator(&mario);
+    Level* level = marioCreator.create();
+    m_game = new Dialog(*level);
     m_game->show();
 }

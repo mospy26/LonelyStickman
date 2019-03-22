@@ -18,6 +18,9 @@ class Stickman
 public:
     Stickman();
     Stickman(enum SizeType size, int X, int Y = 0);
+    Stickman(Stickman&& other);
+
+    Stickman& operator =(Stickman&& other);
 
     ~Stickman();
 

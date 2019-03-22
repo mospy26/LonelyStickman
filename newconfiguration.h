@@ -3,6 +3,8 @@
 
 #include "dialog.h"
 #include "saveform.h"
+#include "mario.h"
+#include "mariocreator.h"
 
 #include <QDialog>
 #include <QLabel>
@@ -17,7 +19,7 @@ public:
     ~NewConfiguration();
     void loadObjects();
     void setPlayButton();
-    QJsonObject parseConfigFile(const QString& filepath);
+    void parseConfigFile(const QString& filepath);
 
 public slots:
     void clickedLoadConfiguration();
@@ -31,7 +33,7 @@ private:
     QPushButton* m_loadConfiguration;
     QPushButton* m_saveConfiguration;
 
-    QJsonObject m_parser;
+    QJsonObject* m_parser;
 
     SaveForm* m_saveDialog;
     Dialog* m_game;

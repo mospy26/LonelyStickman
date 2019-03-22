@@ -5,10 +5,23 @@ bool moveRight = false;
 bool moveLeft = false;
 bool moveUp = false;
 
-Dialog::Dialog(const QJsonObject& parser, QWidget *parent)
+Dialog::Dialog(const QJsonObject* parser, QWidget *parent)
     : ui(new Ui::Dialog)
 {
-    parse(parser);
+    parse(*parser);
+    ui->setupUi(this);
+    this->update();
+    this->setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+    timer->start(32);
+    this->m_level->playMusic();
+}
+
+Dialog::Dialog(Level& level, QWidget* parent)
+    : m_level(new Level())
+{
+    *m_level = std::move(level);
     ui->setupUi(this);
     this->update();
     this->setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());

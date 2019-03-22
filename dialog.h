@@ -22,7 +22,8 @@ class Dialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit Dialog(const QJsonObject& parser, QWidget *parent = nullptr);
+    explicit Dialog(const QJsonObject* parser, QWidget* parent = nullptr);
+    explicit Dialog(Level& level, QWidget* parent = nullptr);
     ~Dialog();
 
 public slots:
