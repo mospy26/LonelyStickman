@@ -77,7 +77,7 @@ void NewConfiguration::setPlayButton()
    m_playButton->setGeometry(400, 250, 200, 80);
 
    m_successLoad->setGeometry(420, 350, 200, 50);
-   m_successLoad->setText("Loaded Config Successfully");
+   m_successLoad->setText("<font color='green'>Loaded Config Successfully</font>");
    connect(m_playButton, SIGNAL(released()), this, SLOT(play()));
 }
 

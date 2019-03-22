@@ -9,7 +9,7 @@ SaveForm::SaveForm(QWidget* parent)
       m_sizeError(new QLabel("", this)),
       m_initialXError(new QLabel("", this)),
       m_initialVelocityError(new QLabel("", this)),
-      m_sizeEdit(new QLineEdit("", this)),
+      m_sizeComboBox(new QComboBox(this)),
       m_initialXEdit(new QLineEdit("", this)),
       m_initialVelocityEdit(new QLineEdit("", this)),
       m_backgroundEdit(new QLineEdit("", this)),
@@ -36,7 +36,7 @@ SaveForm::~SaveForm()
     delete m_initialXError;
     delete m_initialVelocityError;
 
-    delete m_sizeEdit;
+    delete m_sizeComboBox;
     delete m_initialXEdit;
     delete m_initialVelocityEdit;
     delete m_backgroundEdit;
@@ -59,7 +59,13 @@ void SaveForm::loadObjects()
     m_initialXError->setGeometry(400, 130, 100, 30);
     m_initialVelocityError->setGeometry(400, 160, 100, 30);
 
-    m_sizeEdit->setGeometry(500, 100, 100, 30);
+    m_sizeComboBox->setGeometry(500, 100, 100, 30);
+    m_sizeComboBox->addItem("---");
+    m_sizeComboBox->addItem("tiny");
+    m_sizeComboBox->addItem("normal");
+    m_sizeComboBox->addItem("large");
+    m_sizeComboBox->addItem("giant");
+
     m_initialXEdit->setGeometry(500, 130, 100, 30);
     m_initialVelocityEdit->setGeometry(500, 160, 100, 30);
     m_backgroundEdit->setGeometry(500, 190, 100, 30);
@@ -69,16 +75,15 @@ void SaveForm::loadObjects()
 bool SaveForm::isValidInput()
 {
     bool isValid = true;
-    if(m_sizeEdit->text() != "tiny"
-            && m_sizeEdit->text() != "normal"
-            && m_sizeEdit->text() != "large"
-            && m_sizeEdit->text() != "giant") {
-        m_sizeError->setText("<font color='red'>Invalid Size</font>");
+    if(m_sizeComboBox->currentText() == "---") {
+        m_sizeError->setText("<font color='red'>Choose Size!</font>");
         isValid = false;
     }
+    else m_sizeError->hide();
 
     try {
         int data = std::stoi(m_initialXEdit->text().toUtf8().constData());
+        m_initialXError->hide();
         if(data < 0 || data > 1187) throw std::invalid_argument("Error");
     } catch(const std::invalid_argument& error) {
         m_initialXError->setText("<font color='red'>Invalid X Position</font>");
@@ -105,7 +110,7 @@ void SaveForm::saveConfig()
     path.cd("../../../../LonelyStickman");
 
     QJsonObject jsonContent;
-    jsonContent.insert("size", QJsonValue::fromVariant(m_sizeEdit->text()));
+    jsonContent.insert("size", QJsonValue::fromVariant(m_sizeComboBox->currentText()));
 
     jsonContent.insert("initialX", QJsonValue::fromVariant(m_initialXEdit->text()));
     jsonContent.insert("initialVelocity", QJsonValue::fromVariant(m_initialVelocityEdit->text()));

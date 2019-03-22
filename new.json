@@ -1,0 +1,7 @@
+{
+    "background": "back.png",
+    "initialVelocity": "100",
+    "initialX": "1",
+    "music": "edm.mp3",
+    "size": "tiny"
+}

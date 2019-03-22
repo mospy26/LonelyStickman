@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QLabel>
+#include <QComboBox>
 #include <QButtonGroup>
 #include <QPushButton>
 #include <QFileDialog>
@@ -36,7 +37,7 @@ private:
     QLabel* m_initialXError;
     QLabel* m_initialVelocityError;
 
-    QLineEdit* m_sizeEdit;
+    QComboBox* m_sizeComboBox;
     QLineEdit* m_initialXEdit;
     QLineEdit* m_initialVelocityEdit;
     QLineEdit* m_backgroundEdit;
