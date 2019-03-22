@@ -2,9 +2,9 @@
 
 NewConfiguration::NewConfiguration(QWidget *parent)
     : m_successLoad(new QLabel("", this)),
+      m_playButton(new QPushButton("Play", this)),
       m_loadConfiguration(new QPushButton("Load Game", this)),
       m_saveConfiguration(new QPushButton("Save Game", this)),
-      m_playButton(new QPushButton("Play", this)),
       m_parser()
 {
     m_playButton->hide(); //hide until loaded config file successfully
