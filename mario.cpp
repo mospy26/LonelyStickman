@@ -1,8 +1,7 @@
 #include "mario.h"
 
 Mario::Mario(const QJsonObject& parser)
-    : m_parser(parser)
-{}
+    : m_parser(parser) {}
 
 void Mario::buildStickman()
 {

@@ -1,7 +1,9 @@
 #include "saveform.h"
+#include <iostream>
 
 SaveForm::SaveForm(QWidget* parent)
-    : m_sizeLabel(new QLabel("Size", this)),
+    : QDialog(parent),
+      m_sizeLabel(new QLabel("Size", this)),
       m_initialXLabel(new QLabel("Initial position X", this)),
       m_initialVelocityLabel(new QLabel("Initial velocity", this)),
       m_backgroundLabel(new QLabel("Background", this)),
@@ -9,6 +11,8 @@ SaveForm::SaveForm(QWidget* parent)
       m_sizeError(new QLabel("", this)),
       m_initialXError(new QLabel("", this)),
       m_initialVelocityError(new QLabel("", this)),
+      m_backgroundError(new QLabel("", this)),
+      m_musicError(new QLabel("", this)),
       m_sizeComboBox(new QComboBox(this)),
       m_initialXEdit(new QLineEdit("", this)),
       m_initialVelocityEdit(new QLineEdit("", this)),
@@ -91,8 +95,8 @@ bool SaveForm::isValidInput()
 
     try {
         int data = std::stoi(m_initialXEdit->text().toUtf8().constData());
-        m_initialXError->hide();
         if(data < 0 || data > 1187) throw std::invalid_argument("Error");
+        else m_initialXError->hide();
     } catch(const std::invalid_argument& error) {
         m_initialXError->setText("<font color='red'>Invalid X Position</font>");
         isValid = false;
@@ -100,12 +104,15 @@ bool SaveForm::isValidInput()
 
     try {
         int data = std::stoi(m_initialVelocityEdit->text().toUtf8().constData());
-        m_initialXError->hide();
         if(data < 0) throw std::invalid_argument("Error");
+        else m_initialVelocityError->hide();
     } catch(const std::invalid_argument& error) {
+
         m_initialVelocityError->setText("<font color='red'>Invalid velocity</font>");
         isValid = false;
     }
+
+    //if(m_backgroundEdit->text() == "")
 
     return isValid;
 }
@@ -120,7 +127,6 @@ void SaveForm::saveConfig()
 
     QJsonObject jsonContent;
     jsonContent.insert("size", QJsonValue::fromVariant(m_sizeComboBox->currentText()));
-
     jsonContent.insert("initialX", QJsonValue::fromVariant(m_initialXEdit->text()));
     jsonContent.insert("initialVelocity", QJsonValue::fromVariant(m_initialVelocityEdit->text()));
     jsonContent.insert("background", QJsonValue::fromVariant(m_backgroundEdit->text()));

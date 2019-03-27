@@ -37,6 +37,8 @@ private:
     QLabel* m_sizeError;
     QLabel* m_initialXError;
     QLabel* m_initialVelocityError;
+    QLabel* m_backgroundError;
+    QLabel* m_musicError;
 
     QComboBox* m_sizeComboBox;
     QLineEdit* m_initialXEdit;

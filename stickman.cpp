@@ -1,7 +1,7 @@
 #include "stickman.h"
 
 Stickman::Stickman() // default size is tiny
-    : m_size(SizeType::TINY), m_imageHeight(34), m_image(QImage("")), m_X(5), m_Y(5){}
+    : m_size(SizeType::TINY), m_imageHeight(9999 /* 34 */), m_X(5), m_Y(5) {}
 
 Stickman::Stickman(enum SizeType size, int X, int Y)
     : m_size(size), m_imageHeight(0), m_image(nullptr), m_X(X), m_Y(Y)
@@ -27,23 +27,27 @@ Stickman::Stickman(enum SizeType size, int X, int Y)
     }
     QDir imagePath = QDir::currentPath();
     imagePath.cd("../../../../LonelyStickman/img");
-    m_image = QImage(imagePath.path().append("/").append(file.c_str()));
+    m_image = new QImage(imagePath.path().append("/").append(file.c_str()));
 }
 
 Stickman::Stickman(Stickman&& other)
     : m_size(other.m_size),
       m_imageHeight(other.m_imageHeight),
-      m_image(other.m_image.copy()),
+      m_image(other.m_image),
       m_X(other.m_X),
-      m_Y(other.m_Y) {}
+      m_Y(other.m_Y)
+{
+    other.m_image = nullptr;
+}
 
 Stickman& Stickman::operator =(Stickman&& other)
 {
     m_size = other.m_size;
     m_imageHeight = other.m_imageHeight;
-    m_image = other.m_image.copy();
+    m_image = other.m_image;
     m_X = other.m_X;
     m_Y = other.m_Y;
+    other.m_image = nullptr;
     return *this;
 }
 
@@ -51,7 +55,7 @@ Stickman::~Stickman() {}
 
 const QImage& Stickman::getImage() const
 {
-    return this->m_image;
+    return *m_image;
 }
 
 unsigned int Stickman::getImageHeight() const

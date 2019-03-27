@@ -1,11 +1,13 @@
 #include "newconfiguration.h"
 
 NewConfiguration::NewConfiguration(QWidget *parent)
-    : m_successLoad(new QLabel("", this)),
+    : QDialog(parent),
+      m_successLoad(new QLabel(this)),
       m_playButton(new QPushButton("Play", this)),
       m_loadConfiguration(new QPushButton("Load Game", this)),
       m_saveConfiguration(new QPushButton("Save Game", this)),
-      m_parser()
+      m_parser(),
+      m_saveDialog()
 {
     m_playButton->hide(); //hide until loaded config file successfully
 
@@ -24,7 +26,7 @@ NewConfiguration::~NewConfiguration()
     delete m_loadConfiguration;
     delete m_saveConfiguration;
     delete m_playButton;
-    delete m_game;
+    //delete m_game;
     delete m_saveDialog;
     delete m_parser;
 }
@@ -71,7 +73,7 @@ void NewConfiguration::clickedLoadConfiguration()
             return;
         }
         setPlayButton();
-        connect(m_playButton, SIGNAL(released()), this, SLOT(play()));
+        connect(&(*m_playButton), SIGNAL(released()), this, SLOT(play()));
     }
 }
 
@@ -121,10 +123,22 @@ void NewConfiguration::parseConfigFile(const QString &filepath)
 
 void NewConfiguration::play()
 {
-    this->close();
     Mario mario(*m_parser);
     MarioCreator marioCreator(&mario);
     Level* level = marioCreator.create();
-    m_game = new Dialog(*level);
+    m_game = new Dialog(level);
+    m_game->setAttribute(Qt::WA_DeleteOnClose, true);
     m_game->show();
+    this->close();
+}
+
+void NewConfiguration::closeEvent(QCloseEvent* event)
+{
+//    delete m_successLoad;
+//    delete m_loadConfiguration;
+//    delete m_saveConfiguration;
+//    delete m_playButton;
+//    delete m_saveDialog;
+//    delete m_parser;
+//    QWidget::closeEvent(event);
 }

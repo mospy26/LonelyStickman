@@ -25,12 +25,15 @@ public:
     const QImage& getBackground() const;
     unsigned int getFrameWidth() const;
     unsigned int getFrameHeight() const;
-    void moveBackground(QPainter& painter);
-    void placeStickman(QPainter& painter, bool moveUp, bool moveRight, bool moveLeft);
+    void moveBackground(QPainter& painter, bool isPaused);
+    void placeStickman(QPainter& painter, bool moveUp, bool moveRight, bool moveLeft, bool isPaused);
     void playMusic();
+    void pauseMusic();
+    int getOffset() const;
 
 private:
-    QImage m_background;
+    int m_offset;
+    QImage* m_background;
     int m_screenVelocity;
     Stickman* m_stickman;
     QMediaPlaylist* m_playlist;

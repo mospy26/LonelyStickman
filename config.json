@@ -1,7 +1,7 @@
 {
-    "size" : "normal",
-    "initialX" : "20",
-    "initialVelocity" : "50",
-    "background" : "back.png",
-    "music" : "part1.mp3"
+    "background": "back.png",
+    "initialVelocity": "10",
+    "initialX": "10",
+    "music": "part1.mp3",
+    "size": "normal"
 }

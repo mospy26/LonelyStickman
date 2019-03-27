@@ -35,7 +35,7 @@ public:
 private:
     unsigned int m_size;
     unsigned int m_imageHeight;
-    QImage m_image;
+    QImage* m_image;
     unsigned int m_X;
     unsigned int m_Y;
 };

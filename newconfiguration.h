@@ -1,6 +1,7 @@
 #ifndef NEWCONFIGURATION_H
 #define NEWCONFIGURATION_H
 
+
 #include "dialog.h"
 #include "saveform.h"
 #include "mario.h"
@@ -20,6 +21,7 @@ public:
     void loadObjects();
     void setPlayButton();
     void parseConfigFile(const QString& filepath);
+    void closeEvent(QCloseEvent* event) override;
 
 public slots:
     void clickedLoadConfiguration();
