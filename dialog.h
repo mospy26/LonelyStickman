@@ -12,7 +12,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-#include <iostream>
+
 
 namespace Ui {
 class Dialog;

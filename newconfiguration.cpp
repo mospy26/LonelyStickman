@@ -69,7 +69,6 @@ void NewConfiguration::clickedLoadConfiguration()
         try {
             parseConfigFile(file.fileName());
         } catch(const char* error) {
-            std::cout << error << std::endl;
             m_successLoad->setGeometry(420, 350, 200, 50);
             m_successLoad->setText("<font color='red'>Cannot load config file </font>");
             m_playButton->hide();
@@ -96,8 +95,9 @@ void NewConfiguration::setPlayButton()
    m_successLoad->setText("<font color='green'>Loaded Config Successfully</font>");
 }
 
-void NewConfiguration::parseConfigFile(const QString &filepath)
+QString NewConfiguration::parseConfigFile(const QString &filepath)
 {
+    QString error("");
     QFile file(filepath);
     file.open(QIODevice::ReadOnly);
 
@@ -109,18 +109,20 @@ void NewConfiguration::parseConfigFile(const QString &filepath)
                                                 && (*m_parser)["size"].toString() != "normal"
                                                 && (*m_parser)["size"].toString() != "large"
                                                 && (*m_parser)["size"].toString() != "giant"))
-        throw "size not stated";
+        error += "Size not stated\n";
     if((*m_parser)["initialX"].toString() == nullptr || (*m_parser)["initialX"].toString() == "")
-        throw "initialX not stated";
+        error += "InitialX not stated";
     if((*m_parser)["initialVelocity"].toString() == nullptr || (*m_parser)["initialVelocity"].toString()  == "")
-        throw "initial velocity not stated";
+        error += "initial velocity not stated";
     if((*m_parser)["background"].toString() == nullptr || (*m_parser)["background"].toString() == "")
-        throw "background not stated";
+        error += "background not stated";
     if((*m_parser)["music"].toString() == nullptr || (*m_parser)["music"].toString() == "")
-        throw "music not stated";
+        error += "music not stated";
 
     if((*m_parser)["size"] == "---")
-        throw "size not chosen!";
+        error += "size not chosen!";
+
+    return error;
 
 }
 

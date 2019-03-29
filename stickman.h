@@ -22,21 +22,14 @@ public:
 
     Stickman& operator =(Stickman&& other);
 
-    ~Stickman();
+    virtual ~Stickman() {}
 
-    const QImage& getImage() const;
-    unsigned int getImageHeight() const;
-    unsigned int getXPosition() const;
-    unsigned int getYPosition() const;
-    void setXPosition(unsigned int position);
-    void setYPosition(unsigned int position);
-
-private:
-    unsigned int m_size;
-    unsigned int m_imageHeight;
-    QImage* m_image;
-    unsigned int m_X;
-    unsigned int m_Y;
+    virtual const QImage& getImage() const = 0;
+    virtual unsigned int getImageHeight() const = 0;
+    virtual unsigned int getXPosition() const = 0;
+    virtual unsigned int getYPosition() const = 0;
+    virtual void setXPosition(unsigned int position) = 0;
+    virtual void setYPosition(unsigned int position) = 0;
 };
 
 #endif //STICKMAN_H

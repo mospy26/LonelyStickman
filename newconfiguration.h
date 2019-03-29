@@ -20,7 +20,7 @@ public:
     ~NewConfiguration();
     void loadObjects();
     void setPlayButton();
-    void parseConfigFile(const QString& filepath);
+    QString parseConfigFile(const QString& filepath);
 
 public slots:
     void clickedLoadConfiguration();

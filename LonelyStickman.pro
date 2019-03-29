@@ -27,13 +27,16 @@ CONFIG += c++14
 
 SOURCES += \
         main.cpp \
-    stickman.cpp \
     level.cpp \
     dialog.cpp \
     newconfiguration.cpp \
     saveform.cpp \
     mario.cpp \
-    mariocreator.cpp
+    mariocreator.cpp \
+    mariostickman.cpp \
+    stickmancreator.cpp \
+    levelcreator.cpp \
+    mariolevel.cpp
 
 HEADERS += \
     level.h \
@@ -43,7 +46,11 @@ HEADERS += \
     saveform.h \
     gamebuilder.h \
     mario.h \
-    mariocreator.h
+    mariocreator.h \
+    mariostickman.h \
+    stickmancreator.h \
+    levelcreator.h \
+    mariolevel.h
 
 FORMS += \
         dialog.ui

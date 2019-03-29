@@ -1,5 +1,4 @@
 #include "saveform.h"
-#include <iostream>
 
 SaveForm::SaveForm(QWidget* parent)
     : QDialog(parent),

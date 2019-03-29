@@ -1,12 +1,12 @@
-#include "stickman.h"
+#include "mariostickman.h"
 
-Stickman::Stickman() // default size is tiny
+MarioStickman::MarioStickman() // default size is tiny
     : m_size(SizeType::TINY), m_imageHeight(9999 /* 34 */), m_X(5), m_Y(5) {}
 
-Stickman::Stickman(enum SizeType size, int X, int Y)
+MarioStickman::MarioStickman(enum SizeType size, int X, int Y)
     : m_size(size), m_imageHeight(0), m_image(nullptr), m_X(X), m_Y(Y)
 {
-    std::string file;
+    QString file;
     switch (size) {
         case SizeType::TINY:
             file = "mario_tiny.png";
@@ -27,10 +27,10 @@ Stickman::Stickman(enum SizeType size, int X, int Y)
     }
     QDir imagePath = QDir::currentPath();
     imagePath.cd("../../../../LonelyStickman/img");
-    m_image = new QImage(imagePath.path().append("/").append(file.c_str()));
+    m_image = new QImage(imagePath.path().append("/").append(file));
 }
 
-Stickman::Stickman(Stickman&& other)
+MarioStickman::MarioStickman(MarioStickman&& other)
     : m_size(other.m_size),
       m_imageHeight(other.m_imageHeight),
       m_image(other.m_image),
@@ -40,7 +40,7 @@ Stickman::Stickman(Stickman&& other)
     other.m_image = nullptr;
 }
 
-Stickman& Stickman::operator =(Stickman&& other)
+MarioStickman& MarioStickman::operator =(MarioStickman&& other)
 {
     m_size = other.m_size;
     m_imageHeight = other.m_imageHeight;
@@ -51,34 +51,34 @@ Stickman& Stickman::operator =(Stickman&& other)
     return *this;
 }
 
-Stickman::~Stickman() {}
+MarioStickman::~MarioStickman() {}
 
-const QImage& Stickman::getImage() const
+const QImage& MarioStickman::getImage() const
 {
     return *m_image;
 }
 
-unsigned int Stickman::getImageHeight() const
+unsigned int MarioStickman::getImageHeight() const
 {
     return this->m_imageHeight;
 }
 
-unsigned int Stickman::getXPosition() const
+unsigned int MarioStickman::getXPosition() const
 {
     return this->m_X;
 }
 
-unsigned int Stickman::getYPosition() const
+unsigned int MarioStickman::getYPosition() const
 {
     return this->m_Y;
 }
 
-void Stickman::setXPosition(unsigned int position)
+void MarioStickman::setXPosition(unsigned int position)
 {
     this->m_X = position;
 }
 
-void Stickman::setYPosition(unsigned int position)
+void MarioStickman::setYPosition(unsigned int position)
 {
     this->m_Y = position;
 }

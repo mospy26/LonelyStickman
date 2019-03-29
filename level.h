@@ -16,20 +16,16 @@ public:
     Level();
     Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation);
     Level(Stickman* stickman, const QString& backgroundLocation, int screenVelcoity, const QString& musicLocation);
-    ~Level();
+    virtual ~Level();
 
-    Level(Level&& other);
-
-    Level& operator =(Level&& other);
-
-    const QImage& getBackground() const;
-    unsigned int getFrameWidth() const;
-    unsigned int getFrameHeight() const;
-    void moveBackground(QPainter& painter, bool isPaused);
-    void placeStickman(QPainter& painter);
-    void playMusic();
-    void pauseMusic();
-    int getOffset() const;
+    virtual const QImage& getBackground() const = 0;
+    virtual unsigned int getFrameWidth() const = 0;
+    virtual unsigned int getFrameHeight() const = 0;
+    virtual void moveBackground(QPainter& painter, bool isPaused) = 0;
+    virtual void placeStickman(QPainter& painter) = 0;
+    virtual void playMusic() = 0;
+    virtual void pauseMusic() = 0;
+    virtual int getOffset() const = 0;
 
 private:
     int m_offset;
