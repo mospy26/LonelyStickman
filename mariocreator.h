@@ -11,7 +11,6 @@ public:
 
 private:
     GameBuilder* m_builder;
-
 };
 
 #endif // MARIOCREATOR_H

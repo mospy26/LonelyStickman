@@ -7,6 +7,7 @@ NewConfiguration::NewConfiguration(QWidget *parent)
       m_loadConfiguration(new QPushButton("Load Game", this)),
       m_saveConfiguration(new QPushButton("Save Game", this)),
       m_parser(),
+      m_configFilePath(),
       m_saveDialog()
 {
     m_playButton->hide(); //hide until loaded config file successfully
@@ -53,6 +54,8 @@ void NewConfiguration::clickedLoadConfiguration()
     QString loadState = QFileDialog::getOpenFileName(this,
                             tr("Load Game Configuration"), path.absolutePath(),
                             tr("JSON (*.json)"));
+    m_configFilePath = loadState;
+
     if(loadState.isEmpty())
         return;
     else {
@@ -126,19 +129,8 @@ void NewConfiguration::play()
     Mario mario(*m_parser);
     MarioCreator marioCreator(&mario);
     Level* level = marioCreator.create();
-    m_game = new Dialog(level);
+    m_game = new Dialog(level, m_configFilePath);
     m_game->setAttribute(Qt::WA_DeleteOnClose, true);
     m_game->show();
     this->close();
-}
-
-void NewConfiguration::closeEvent(QCloseEvent* event)
-{
-//    delete m_successLoad;
-//    delete m_loadConfiguration;
-//    delete m_saveConfiguration;
-//    delete m_playButton;
-//    delete m_saveDialog;
-//    delete m_parser;
-//    QWidget::closeEvent(event);
 }

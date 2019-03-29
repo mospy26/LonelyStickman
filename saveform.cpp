@@ -111,9 +111,6 @@ bool SaveForm::isValidInput()
         m_initialVelocityError->setText("<font color='red'>Invalid velocity</font>");
         isValid = false;
     }
-
-    //if(m_backgroundEdit->text() == "")
-
     return isValid;
 }
 

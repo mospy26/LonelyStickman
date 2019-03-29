@@ -12,17 +12,6 @@ Level::Level()
     m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
 }
 
-//Level::Level()
-//    : m_background(":/img/back.png"),
-//      m_stickman(new Stickman()),
-//      m_playlist(new QMediaPlaylist()),
-//      m_music(new QMediaPlayer())
-//{
-//    this->m_playlist->addMedia(QUrl("qrc:/music/part1.mp3"));
-//    this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
-//    m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
-//}
-
 Level::Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation)
     : m_offset(0),
       m_background(),
@@ -127,9 +116,8 @@ void Level::moveBackground(QPainter& painter, bool isPaused)
     if(!isPaused) m_offset -= m_screenVelocity;
 }
 
-void Level::placeStickman(QPainter &painter, bool moveUp, bool moveRight, bool moveLeft, bool isPaused)
+void Level::placeStickman(QPainter &painter)
 {
-    if(!isPaused) m_stickman->movePlayer(moveUp, moveRight, moveLeft, m_frameHeight - m_floorBase- m_stickman->getImageHeight());
     painter.drawImage(m_stickman->getXPosition(), m_stickman->getYPosition(), m_stickman->getImage());
 }
 

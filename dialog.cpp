@@ -1,10 +1,6 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 
-bool moveRight = false;
-bool moveLeft = false;
-bool moveUp = false;
-
 Dialog::Dialog(QWidget* parent) {}
     //: ui(new Ui::Dialog) {}
 
@@ -25,12 +21,13 @@ Dialog::Dialog(const QJsonObject* parser, QWidget *parent)
     m_pauseLabel->setText("<font color='red'>PAUSED</font>");
 }
 
-Dialog::Dialog(Level* level, QWidget* parent)
+Dialog::Dialog(Level* level, const QString& configFilePath, QWidget* parent)
     : QDialog(parent),
       /* ui(new Ui::Dialog), */
       m_level(new Level()),
       m_timer(new QTimer(this)),
-      m_pauseLabel(new QLabel("Paused", this))
+      m_pauseLabel(new QLabel("Paused", this)),
+      m_configFilePath(configFilePath)
 {
     *m_level = std::move(*level);
     //ui->setupUi(this);
@@ -40,7 +37,6 @@ Dialog::Dialog(Level* level, QWidget* parent)
     m_timer->start(32);
     m_level->playMusic();
     m_pauseLabel->hide();
-    m_pauseLabel->setText("<font color='red'>PAUSED</font>");
 }
 
 Dialog& Dialog::operator =(Dialog&& dialog)
@@ -72,11 +68,9 @@ void Dialog::nextFrame()
 
 void Dialog::paintEvent(QPaintEvent* event)
 {
-
-    //background = background.scaled(FRAME_WIDTH, FRAME_HEIGHT, Qt::IgnoreAspectRatio);
     QPainter painter(this);
     m_level->moveBackground(painter, m_pause);
-    m_level->placeStickman(painter, moveUp, moveRight, moveLeft, m_pause);
+    m_level->placeStickman(painter);
 }
 
 void Dialog::parse(const QJsonObject& parser)
@@ -95,19 +89,8 @@ void Dialog::parse(const QJsonObject& parser)
                             parser["music"].toString());
 }
 
-
-void Dialog::keyReleaseEvent(QKeyEvent *event)
-{
-    if(event->key() == Qt::Key_Right) moveRight = false;
-    if(event->key() == Qt::Key_Left) moveLeft = false;
-    if(event->key() == Qt::Key_Up) moveUp = false;
-}
-
 void Dialog::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Right) moveRight = true;
-    if(event->key() == Qt::Key_Left) moveLeft = true;
-    if(event->key() == Qt::Key_Up) moveUp = true;
     if(event->key() == Qt::Key_Escape and !m_pause) m_pause = true;
     else if(event->key() == Qt::Key_Escape and m_pause) m_pause = false;
     if(!m_pause && !m_timer->isActive()) {
@@ -117,23 +100,9 @@ void Dialog::keyPressEvent(QKeyEvent* event)
     }
     else if(m_pause && m_timer->isActive()) {
         m_timer->stop();
-        m_pauseLabel->setGeometry(m_level->getFrameWidth()/2 - 150, m_level->getFrameHeight()/2 - 100, 400, 400);
+        m_pauseLabel->setText("<font color='red'; size='30'>PAUSED</font>");
+        m_pauseLabel->setGeometry(m_level->getFrameWidth()/2 - 50, 0, 400, 50);
         m_pauseLabel->show();
         m_level->pauseMusic();
     }
-}
-
-//void Dialog::launchConfigMenu()
-//{
-//    m_configMenu->show();
-//}
-
-void Dialog::closeEvent(QCloseEvent *event)
-{
-//    delete ui;
-//    delete m_level;
-//    delete m_timer;
-//    delete m_pauseLabel;
-//    delete this;
-//   QWidget::closeEvent(event);
 }

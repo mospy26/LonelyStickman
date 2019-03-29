@@ -26,7 +26,7 @@ public:
     unsigned int getFrameWidth() const;
     unsigned int getFrameHeight() const;
     void moveBackground(QPainter& painter, bool isPaused);
-    void placeStickman(QPainter& painter, bool moveUp, bool moveRight, bool moveLeft, bool isPaused);
+    void placeStickman(QPainter& painter);
     void playMusic();
     void pauseMusic();
     int getOffset() const;

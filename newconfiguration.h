@@ -21,7 +21,6 @@ public:
     void loadObjects();
     void setPlayButton();
     void parseConfigFile(const QString& filepath);
-    void closeEvent(QCloseEvent* event) override;
 
 public slots:
     void clickedLoadConfiguration();
@@ -36,9 +35,11 @@ private:
     QPushButton* m_saveConfiguration;
 
     QJsonObject* m_parser;
+    QString m_configFilePath;
 
     SaveForm* m_saveDialog;
     Dialog* m_game;
+
 };
 
 #endif // NEWCONFIGURATION_H

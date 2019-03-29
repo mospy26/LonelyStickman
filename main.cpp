@@ -14,8 +14,5 @@ int main(int argc, char *argv[])
     NewConfiguration n;
     n.show();
 
-//    Dialog w;
-//    w.show();
-
     return a.exec();
 }
