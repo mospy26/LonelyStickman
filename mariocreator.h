@@ -3,14 +3,29 @@
 
 #include "mario.h"
 
+/**
+ * @brief The MarioCreator class
+ * The director class for Mario
+ */
 class MarioCreator
 {
 public:
+    /**
+     * @brief MarioCreator
+     * @param builder
+     * Constructor for the mario director
+     */
     MarioCreator(GameBuilder* builder);
+
+    /**
+     * @brief create
+     * @return generated level
+     * Creates level and returns it
+     */
     Level* create();
 
 private:
-    GameBuilder* m_builder;
+    GameBuilder* m_builder; //The abstract builder for building the level
 };
 
 #endif // MARIOCREATOR_H

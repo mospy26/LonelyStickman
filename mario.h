@@ -3,15 +3,40 @@
 
 #include "gamebuilder.h"
 
+/**
+ * @brief The Mario class
+ * Concrete Builder
+ */
 class Mario : public GameBuilder
 {
 public:
-    Mario(const QJsonObject& parser);
+    /**
+     * @brief Mario
+     * @param parser
+     * Constructor for mario builder
+     */
+    explicit Mario(const QJsonObject& parser);
+
     ~Mario();
 
-    void buildStickman();
-    void buildLevel();
-    Level* getLevel();
+    /**
+     * @brief buildStickman
+     * Overrides from base class
+     */
+    void buildStickman() override;
+
+    /**
+     * @brief buildLevel
+     * Overrides from base class
+     */
+    void buildLevel() override;
+
+    /**
+     * @brief getLevel
+     * @return created level
+     * Overrides base class
+     */
+    Level* getLevel() override;
 
 private:
     Stickman* m_mario;

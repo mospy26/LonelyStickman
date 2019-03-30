@@ -1,17 +1,6 @@
 #include "level.h"
 #include <iostream>
 
-Level::Level()
-    : m_offset(0),
-      m_stickman(new Stickman()),
-      m_playlist(new QMediaPlaylist()),
-      m_music(new QMediaPlayer())
-{
-    this->m_playlist->addMedia(QUrl("qrc:/music/part1.mp3"));
-    this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
-    m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
-}
-
 Level::Level(const QString& backgroundLocation, SizeType size, int initialX, int screenVelocity, const QString& musicLocation)
     : m_offset(0),
       m_background(),

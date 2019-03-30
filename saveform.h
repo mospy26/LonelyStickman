@@ -14,17 +14,47 @@
 #include <QTextStream>
 #include <string>
 
+/**
+ * @brief The SaveForm class
+ * The class for the Save configuration dialog
+ */
 class SaveForm : public QDialog
 {
     Q_OBJECT
-public:
-    SaveForm(QWidget* parent = nullptr);
+public: 
+    /**
+     * @brief SaveForm
+     * @param parent
+     * Constructs the save form - initialises all constituents
+     */
+    explicit SaveForm(QWidget* parent = nullptr);
+
     ~SaveForm();
+
+    /**
+     * @brief loadObjects
+     * Presents required contituents like labels and a combo box on the screen
+     */
     void loadObjects();
-    bool isValidInput(); //check for invalid properties in config file
+
+    /**
+     * @brief isValidInput
+     * @return True if the config file is valid
+     * If the config file is valid, i.e. has required configurations then returns True
+     */
+    bool isValidInput();
+
+    /**
+     * @brief hideErrorLabels
+     * Hides the error labels which are not supposed to show up
+     */
     void hideErrorLabels();
 
 public slots:
+    /**
+     * @brief saveConfig
+     * Handles the event of "Save config file" when input is entered
+     */
     void saveConfig();
 
 private:
@@ -40,13 +70,13 @@ private:
     QLabel* m_backgroundError;
     QLabel* m_musicError;
 
-    QComboBox* m_sizeComboBox;
+    QComboBox* m_sizeComboBox; //Combo box for size choice
     QLineEdit* m_initialXEdit;
     QLineEdit* m_initialVelocityEdit;
     QLineEdit* m_backgroundEdit;
     QLineEdit* m_musicEdit;
 
-    QPushButton* m_saveAs;
+    QPushButton* m_saveAs; //"Save As" button
 };
 
 #endif // SAVEFORM_H

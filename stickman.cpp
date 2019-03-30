@@ -1,8 +1,5 @@
 #include "stickman.h"
 
-Stickman::Stickman() // default size is tiny
-    : m_size(SizeType::TINY), m_imageHeight(9999 /* 34 */), m_X(5), m_Y(5) {}
-
 Stickman::Stickman(enum SizeType size, int X, int Y)
     : m_size(size), m_imageHeight(0), m_image(nullptr), m_X(X), m_Y(Y)
 {
