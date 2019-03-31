@@ -33,7 +33,7 @@ Dialog::Dialog(Level* level, const QString& configFilePath, QWidget* parent)
     ui->setupUi(this);
     update();
     setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(update())); //call the next frame
     m_timer->start(32);
     m_level->playMusic();
     m_pauseLabel->hide();
@@ -45,7 +45,7 @@ Dialog& Dialog::operator =(Dialog&& dialog)
     this->m_level = dialog.m_level;
     this->m_timer = dialog.m_timer;
     this->m_pauseLabel = dialog.m_pauseLabel;
-    this->m_pause = dialog.m_pause;
+    this->m_isPaused = dialog.m_isPaused;
     dialog.ui = nullptr;
     dialog.m_level = nullptr;
     dialog.m_timer = nullptr;
@@ -61,15 +61,10 @@ Dialog::~Dialog()
     delete m_pauseLabel;
 }
 
-void Dialog::nextFrame()
-{
-    update();
-}
-
 void Dialog::paintEvent(QPaintEvent* event)
 {
     QPainter painter(this);
-    m_level->moveBackground(painter, m_pause);
+    m_level->moveBackground(painter, m_isPaused);
     m_level->placeStickman(painter);
 }
 
@@ -92,18 +87,18 @@ void Dialog::paintEvent(QPaintEvent* event)
 
 void Dialog::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key() == Qt::Key_Escape and !m_pause) m_pause = true;
-    else if(event->key() == Qt::Key_Escape and m_pause) m_pause = false;
+    if(event->key() == Qt::Key_Escape and !m_isPaused) m_isPaused = true;
+    else if(event->key() == Qt::Key_Escape and m_isPaused) m_isPaused = false;
 
     //restart the timer if not paused and the game was not active earlier
-    if(!m_pause && !m_timer->isActive()) {
+    if(!m_isPaused && !m_timer->isActive()) {
         m_pauseLabel->hide();
         m_timer->start(32);
         m_level->playMusic();
     }
 
     //stop the timer if paused and the game was active earlier
-    else if(m_pause && m_timer->isActive()) {
+    else if(m_isPaused && m_timer->isActive()) {
         m_timer->stop();
         m_pauseLabel->setText("<font color='red'; size='30'>PAUSED</font>");
         m_pauseLabel->setGeometry(m_level->getFrameWidth()/2 - 50, 0, 400, 50);

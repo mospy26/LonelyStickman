@@ -71,6 +71,7 @@ void NewConfiguration::clickedLoadConfiguration()
             std::unique_ptr<QMessageBox> errorBox = std::make_unique<QMessageBox>(this);
             errorBox->setWindowTitle("Error");
             errorBox->setText(error);
+            errorBox->setIcon(QMessageBox::Warning);
             errorBox->exec();
             m_successLoad->setGeometry(420, 350, 200, 50);
             m_successLoad->setText("<font color='red'>Cannot load config file </font>");

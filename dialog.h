@@ -43,13 +43,6 @@ public:
     Dialog& operator =(Dialog&& dialog);
     ~Dialog() override;
 
-public slots:
-    /**
-     * @brief nextFrame
-     * Updates the frame
-     */
-    void nextFrame();
-
 protected:
     /**
      * @brief paintEvent
@@ -78,7 +71,7 @@ private:
     QTimer* m_timer; //Timer for updating the screen
     QLabel* m_pauseLabel; //Pause Label
     QString m_configFilePath;
-    bool m_pause = false; //Stores if the game is paused or not
+    bool m_isPaused = false; //True if the game is paused
 };
 
 #endif // DIALOG_H

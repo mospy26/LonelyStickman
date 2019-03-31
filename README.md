@@ -19,9 +19,8 @@ There is an abtract builder, a concrete one and a director that returns the buil
 # Object Oriented Design
 ---
 
-Every level is an object, every stickman is an object. Level consists of a stickman.
-
-Classes are as follows:
+Every level is an object, every stickman is an object. Level consists of a stickman. Dialog is a frame that contains a level to begin with.
+Classes used are as follows:
 1. __Level (level.h and level.cpp)__:
     * Stickman
     * offset (for scrolling the background)
@@ -35,9 +34,13 @@ Classes are as follows:
     * image itself
     * X and Y position of the stickman
 3. __Dialog (dialog.h and dialog.cpp)__:
+    * level
 4. __Newconfiguration (newconfiguration.h and newconfiguration.cpp)__:
-    * Has the game itself
-5. __GameBuilder, Mario and MarioCreator__:
+    * dialog (which is the game itself)
+    * Labels and push buttons
+5. __SaveForm (saveform.h and saveform.cpp)__:
+    * labels, input fields and push buttons
+6. __GameBuilder, Mario and MarioCreator__:
     * Abstract builder class, concrete builder and director respectively
 
 # Config File
