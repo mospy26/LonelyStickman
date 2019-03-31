@@ -54,9 +54,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    README.txt \
     .gitignore \
-    music/part1.mp3
+    music/part1.mp3 \
+    README.md
 
 RESOURCES += \
     resources.qrc
