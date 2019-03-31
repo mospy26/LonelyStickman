@@ -4,22 +4,22 @@
 Dialog::Dialog(QWidget* parent)
     : ui(new Ui::Dialog) {}
 
-Dialog::Dialog(const QJsonObject* parser, QWidget *parent)
-    : QDialog(parent),
-      ui(new Ui::Dialog),
-      m_timer(new QTimer(this)),
-      m_pauseLabel(new QLabel("Paused", this))
-{
-    parse(*parser);
-    ui->setupUi(this);
-    update();
-    setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
-    m_timer->start(32);
-    m_level->playMusic();
-    m_pauseLabel->hide();
-    m_pauseLabel->setText("<font color='red'>PAUSED</font>");
-}
+//Dialog::Dialog(const QJsonObject* parser, QWidget *parent)
+//    : QDialog(parent),
+//      ui(new Ui::Dialog),
+//      m_timer(new QTimer(this)),
+//      m_pauseLabel(new QLabel("Paused", this))
+//{
+//    //parse(*parser);
+//    ui->setupUi(this);
+//    update();
+//    setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
+//    connect(m_timer, SIGNAL(timeout()), this, SLOT(nextFrame())); //update the frame
+//    m_timer->start(32);
+//    m_level->playMusic();
+//    m_pauseLabel->hide(); //Hide the Pause label until game is paused
+//    m_pauseLabel->setText("<font color='red'>PAUSED</font>");
+//}
 
 Dialog::Dialog(Level* level, const QString& configFilePath, QWidget* parent)
     : QDialog(parent),
@@ -73,31 +73,36 @@ void Dialog::paintEvent(QPaintEvent* event)
     m_level->placeStickman(painter);
 }
 
-void Dialog::parse(const QJsonObject& parser)
-{
-    //convert string to size
-    SizeType stickmanSize;
-    if(parser["size"].toString() == "tiny")     stickmanSize = SizeType::TINY;
-    else if(parser["size"].toString() == "normal")   stickmanSize = SizeType::NORMAL;
-    else if(parser["size"].toString() == "large")    stickmanSize = SizeType::LARGE;
-    else stickmanSize = SizeType::GIANT;
+//void Dialog::parse(const QJsonObject& parser)
+//{
+//    //convert string to size
+//    SizeType stickmanSize;
+//    if(parser["size"].toString() == "tiny")     stickmanSize = SizeType::TINY;
+//    else if(parser["size"].toString() == "normal")   stickmanSize = SizeType::NORMAL;
+//    else if(parser["size"].toString() == "large")    stickmanSize = SizeType::LARGE;
+//    else stickmanSize = SizeType::GIANT;
 
-    m_level = new Level(parser["background"].toString(),
-                            stickmanSize,
-                            parser["initialX"].toString().toInt(),
-                            parser["initialVelocity"].toString().toInt(),
-                            parser["music"].toString());
-}
+//    //construct the level using the config file's configuration
+//    m_level = new Level(parser["background"].toString(),
+//                            stickmanSize,
+//                            parser["initialX"].toString().toInt(),
+//                            parser["initialVelocity"].toString().toInt(),
+//                            parser["music"].toString());
+//}
 
 void Dialog::keyPressEvent(QKeyEvent* event)
 {
     if(event->key() == Qt::Key_Escape and !m_pause) m_pause = true;
     else if(event->key() == Qt::Key_Escape and m_pause) m_pause = false;
+
+    //restart the timer if not paused and the game was not active earlier
     if(!m_pause && !m_timer->isActive()) {
         m_pauseLabel->hide();
         m_timer->start(32);
         m_level->playMusic();
     }
+
+    //stop the timer if paused and the game was active earlier
     else if(m_pause && m_timer->isActive()) {
         m_timer->stop();
         m_pauseLabel->setText("<font color='red'; size='30'>PAUSED</font>");

@@ -1,5 +1,5 @@
 #include "newconfiguration.h"
-
+#include <memory>
 NewConfiguration::NewConfiguration(QWidget *parent)
     : QDialog(parent),
       m_successLoad(new QLabel(this)),
@@ -27,7 +27,6 @@ NewConfiguration::~NewConfiguration()
     delete m_loadConfiguration;
     delete m_saveConfiguration;
     delete m_playButton;
-    //delete m_game;
     delete m_saveDialog;
     delete m_parser;
 }
@@ -69,7 +68,10 @@ void NewConfiguration::clickedLoadConfiguration()
         try {
             parseConfigFile(file.fileName());
         } catch(const char* error) {
-            std::cout << error << std::endl;
+            std::unique_ptr<QMessageBox> errorBox = std::make_unique<QMessageBox>(this);
+            errorBox->setWindowTitle("Error");
+            errorBox->setText(error);
+            errorBox->exec();
             m_successLoad->setGeometry(420, 350, 200, 50);
             m_successLoad->setText("<font color='red'>Cannot load config file </font>");
             m_playButton->hide();

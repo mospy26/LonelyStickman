@@ -24,7 +24,7 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget* parent = nullptr);
-    Dialog(const QJsonObject* parser, QWidget* parent = nullptr);
+//    Dialog(const QJsonObject* parser, QWidget* parent = nullptr);
     /**
      * @brief Dialog
      * @param level
@@ -58,12 +58,12 @@ protected:
      */
     void paintEvent(QPaintEvent* event) override;
 
-    /**
-     * @brief parse
-     * @param parser
-     * To parse the config file and do error checking
-     */
-    void parse(const QJsonObject& parser);
+//    /**
+//     * @brief parse
+//     * @param parser
+//     * To parse the config file and do error checking
+//     */
+//    void parse(const QJsonObject& parser);
 
     /**
      * @brief keyPressEvent

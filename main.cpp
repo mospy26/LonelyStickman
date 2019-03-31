@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 
     QDir::setCurrent(QCoreApplication::applicationDirPath());
 
+    //Call the main manu
     NewConfiguration n;
     n.show();
 

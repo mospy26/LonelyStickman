@@ -23,9 +23,9 @@ SaveForm::SaveForm(QWidget* parent)
     setFixedSize(800, 600);
     setWindowTitle("Save Config File");
 
-    loadObjects(); //load all buttons
+    loadObjects(); //load all buttons and input fields
 
-    connect(m_saveAs, SIGNAL(released()), this, SLOT(saveConfig()));
+    connect(m_saveAs, SIGNAL(released()), this, SLOT(saveConfig())); //Handle the event when "Save" is clicked
 }
 
 SaveForm::~SaveForm()
@@ -91,7 +91,7 @@ bool SaveForm::isValidInput()
         m_sizeError->setText("<font color='red'>Choose Size!</font>");
         isValid = false;
     }
-    else m_sizeError->hide();
+    else m_sizeError->hide(); //Hide the error label if this property was valid
 
     try {
         int data = std::stoi(m_initialXEdit->text().toUtf8().constData());
@@ -116,13 +116,14 @@ bool SaveForm::isValidInput()
 
 void SaveForm::saveConfig()
 {
-
     if(!isValidInput()) return;
 
     QDir path = QDir::currentPath();
     path.cd("../../../../LonelyStickman");
 
     QJsonObject jsonContent;
+
+    //Get values from input fields
     jsonContent.insert("size", QJsonValue::fromVariant(m_sizeComboBox->currentText()));
     jsonContent.insert("initialX", QJsonValue::fromVariant(m_initialXEdit->text()));
     jsonContent.insert("initialVelocity", QJsonValue::fromVariant(m_initialVelocityEdit->text()));
@@ -132,6 +133,7 @@ void SaveForm::saveConfig()
     QJsonDocument doc(jsonContent);
     QString contents = doc.toJson();
 
+    //Open the file dialog
     QString saveState = QFileDialog::getSaveFileName(this,
                             tr("Save Game Configuration"), path.absolutePath(),
                             tr("JSON (*.json"));
@@ -145,6 +147,8 @@ void SaveForm::saveConfig()
             file.errorString());
             return;
         }
+
+        //Save contents to the config file
         QTextStream stream(&file);
         stream << contents;
         this->close();

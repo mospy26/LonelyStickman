@@ -56,8 +56,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     README.txt \
     .gitignore \
-    music/part1.mp3 \
-    wrong.json
+    music/part1.mp3
 
 RESOURCES += \
     resources.qrc

@@ -22,6 +22,8 @@ Stickman::Stickman(enum SizeType size, int X, int Y)
             this->m_imageHeight = 109;
             break;
     }
+
+    //Load the stickman image
     QDir imagePath = QDir::currentPath();
     imagePath.cd("../../../../LonelyStickman/img");
     m_image = new QImage(imagePath.path().append("/").append(file.c_str()));

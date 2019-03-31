@@ -17,7 +17,7 @@ public:
      */
     explicit Mario(const QJsonObject& parser);
 
-    ~Mario();
+    ~Mario() override;
 
     /**
      * @brief buildStickman
@@ -34,7 +34,6 @@ public:
     /**
      * @brief getLevel
      * @return created level
-     * Overrides base class
      */
     Level* getLevel() override;
 
