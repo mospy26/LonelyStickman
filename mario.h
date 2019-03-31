@@ -7,7 +7,7 @@
  * @brief The Mario class
  * Concrete Builder
  */
-class Mario : public GameBuilder
+class Mario
 {
 public:
     /**
@@ -17,25 +17,25 @@ public:
      */
     explicit Mario(const QJsonObject& parser);
 
-    ~Mario() override;
+    ~Mario();
 
     /**
      * @brief buildStickman
      * Overrides from base class
      */
-    void buildStickman() override;
+    void buildStickman();
 
     /**
      * @brief buildLevel
      * Overrides from base class
      */
-    void buildLevel() override;
+    void buildLevel();
 
     /**
      * @brief getLevel
      * @return created level
      */
-    Level* getLevel() override;
+    Level* getLevel();
 
 private:
     Stickman* m_mario;

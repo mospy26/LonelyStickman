@@ -1,6 +1,6 @@
 #include "mariocreator.h"
 
-MarioCreator::MarioCreator(GameBuilder* builder)
+MarioCreator::MarioCreator(Mario* builder)
     : m_builder(builder) {}
 
 Level* MarioCreator::create()

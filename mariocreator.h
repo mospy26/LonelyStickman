@@ -15,7 +15,7 @@ public:
      * @param builder
      * Constructor for the mario director
      */
-    MarioCreator(GameBuilder* builder);
+    MarioCreator(Mario* builder);
 
     /**
      * @brief create
@@ -25,7 +25,7 @@ public:
     Level* create();
 
 private:
-    GameBuilder* m_builder; //The abstract builder for building the level
+    Mario* m_builder; //The abstract builder for building the level
 };
 
 #endif // MARIOCREATOR_H

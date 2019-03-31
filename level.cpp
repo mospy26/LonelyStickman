@@ -114,7 +114,7 @@ void Level::moveBackground(QPainter& painter, bool isPaused)
     if(m_offset <= -m_frameWidth)
         m_offset = 0;
 
-    //Dont move the images if paused
+    //Scroll the images if the game is not paused
     if(!isPaused) m_offset -= m_screenVelocity;
 }
 
