@@ -4,23 +4,6 @@
 Dialog::Dialog(QWidget* parent)
     : ui(new Ui::Dialog) {}
 
-//Dialog::Dialog(const QJsonObject* parser, QWidget *parent)
-//    : QDialog(parent),
-//      ui(new Ui::Dialog),
-//      m_timer(new QTimer(this)),
-//      m_pauseLabel(new QLabel("Paused", this))
-//{
-//    //parse(*parser);
-//    ui->setupUi(this);
-//    update();
-//    setFixedSize(this->m_level->getFrameWidth(), this->m_level->getFrameHeight());
-//    connect(m_timer, SIGNAL(timeout()), this, SLOT(nextFrame())); //update the frame
-//    m_timer->start(32);
-//    m_level->playMusic();
-//    m_pauseLabel->hide(); //Hide the Pause label until game is paused
-//    m_pauseLabel->setText("<font color='red'>PAUSED</font>");
-//}
-
 Dialog::Dialog(Level* level, const QString& configFilePath, QWidget* parent)
     : QDialog(parent),
       ui(new Ui::Dialog),
@@ -29,6 +12,7 @@ Dialog::Dialog(Level* level, const QString& configFilePath, QWidget* parent)
       m_pauseLabel(new QLabel("Paused", this)),
       m_configFilePath(configFilePath)
 {
+    //Move the contents of supplied level to current level
     *m_level = std::move(*level);
     ui->setupUi(this);
     update();
@@ -36,7 +20,7 @@ Dialog::Dialog(Level* level, const QString& configFilePath, QWidget* parent)
     connect(m_timer, SIGNAL(timeout()), this, SLOT(update())); //call the next frame
     m_timer->start(32);
     m_level->playMusic();
-    m_pauseLabel->hide();
+    m_pauseLabel->hide(); //Hide pause label until escape button is pressed
 }
 
 Dialog& Dialog::operator =(Dialog&& dialog)
@@ -67,23 +51,6 @@ void Dialog::paintEvent(QPaintEvent* event)
     m_level->moveBackground(painter, m_isPaused);
     m_level->placeStickman(painter);
 }
-
-//void Dialog::parse(const QJsonObject& parser)
-//{
-//    //convert string to size
-//    SizeType stickmanSize;
-//    if(parser["size"].toString() == "tiny")     stickmanSize = SizeType::TINY;
-//    else if(parser["size"].toString() == "normal")   stickmanSize = SizeType::NORMAL;
-//    else if(parser["size"].toString() == "large")    stickmanSize = SizeType::LARGE;
-//    else stickmanSize = SizeType::GIANT;
-
-//    //construct the level using the config file's configuration
-//    m_level = new Level(parser["background"].toString(),
-//                            stickmanSize,
-//                            parser["initialX"].toString().toInt(),
-//                            parser["initialVelocity"].toString().toInt(),
-//                            parser["music"].toString());
-//}
 
 void Dialog::keyPressEvent(QKeyEvent* event)
 {

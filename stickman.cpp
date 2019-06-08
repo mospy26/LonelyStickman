@@ -3,7 +3,7 @@
 Stickman::Stickman(enum SizeType size, int X, int Y)
     : m_size(size), m_imageHeight(0), m_image(nullptr), m_X(X), m_Y(Y)
 {
-    std::string file;
+    QString file;
     switch (size) {
         case SizeType::TINY:
             file = "mario_tiny.png";
@@ -24,19 +24,7 @@ Stickman::Stickman(enum SizeType size, int X, int Y)
     }
 
     //Load the stickman image
-    QDir imagePath = QDir::currentPath();
-    imagePath.cd("../../../../LonelyStickman/img");
-    m_image = new QImage(imagePath.path().append("/").append(file.c_str()));
-}
-
-Stickman::Stickman(Stickman&& other)
-    : m_size(other.m_size),
-      m_imageHeight(other.m_imageHeight),
-      m_image(other.m_image),
-      m_X(other.m_X),
-      m_Y(other.m_Y)
-{
-    other.m_image = nullptr;
+    m_image = new QImage(":/img/" + file);
 }
 
 Stickman& Stickman::operator =(Stickman&& other)

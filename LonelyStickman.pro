@@ -41,7 +41,6 @@ HEADERS += \
     stickman.h \
     newconfiguration.h \
     saveform.h \
-    gamebuilder.h \
     mario.h \
     mariocreator.h
 

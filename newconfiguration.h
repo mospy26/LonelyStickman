@@ -44,7 +44,7 @@ public:
     /**
      * @brief parseConfigFile
      * @param filepath
-     * Method to parse the config file for error checking
+     * Method for checking the validithy of the config file and sets the parser
      */
     void parseConfigFile(const QString& filepath);
 
@@ -68,6 +68,7 @@ public slots:
     void play();
 
 private:
+    QLabel* m_mainLabel; //Main menu label "Stickman"
     QLabel* m_successLoad; //Label that appears if the config file was successfully loaded
 
     QPushButton* m_playButton;

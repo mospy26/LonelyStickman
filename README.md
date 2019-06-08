@@ -14,7 +14,7 @@ The style of this project is based off the Google C++ style (https://google.gith
 ---
 
 The creational design pattern used is the Builder pattern
-There is an abtract builder, a concrete one and a director that returns the built level.
+There is a concrete builder that builds the level and a director that returns the built level from the builder.
 
 # Object Oriented Design
 ---
@@ -40,11 +40,24 @@ Classes used are as follows:
     * Labels and push buttons
 5. __SaveForm (saveform.h and saveform.cpp)__:
     * labels, input fields and push buttons
-6. __GameBuilder, Mario and MarioCreator__:
-    * Abstract builder class, concrete builder and director respectively
+6. __Mario and MarioCreator__:
+    * Concrete builder and director respectively
 
 # Config File
 ---
 
 The config file is of filetype json. The configuration like size, background etc are stored as keys and the data as values.
 Error checking is done for invalid config files.
+
+1. "size" represents size
+2. "initialX" represents the stickman's initial X position
+3. "initialVelocity" represents the velocity of scrolling background
+4. "music" represents the background music from qresources (Extension)
+5. "background" represents the background image from the qresources
+
+# Extensions
+---
+
+1. Main menu to load a config file, or to save into. Saving involved spawning another dialog window to save the input given by the user into another json config file
+2. Background music is implemented, music loaded is specified in the chosen config file.
+3. "esc" escape button is the pause button for the game.

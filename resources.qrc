@@ -1,3 +1,12 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>img/back.png</file>
+        <file>img/mario_tiny.png</file>
+        <file>img/mario_normal.png</file>
+        <file>img/mario_large.png</file>
+        <file>img/mario_giant.png</file>
+        <file>img/mainmenu.png</file>
+        <file>music/part1.mp3</file>
+        <file>music/edm.mp3</file>
+    </qresource>
 </RCC>

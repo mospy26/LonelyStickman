@@ -1,0 +1,7 @@
+{
+    "background": "back.png",
+    "initialVelocity": "ab",
+    "initialX": "10",
+    "music": "part1.mp3",
+    "size": "normal"
+}

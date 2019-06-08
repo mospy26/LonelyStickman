@@ -1,7 +1,9 @@
 #ifndef MARIO_H
 #define MARIO_H
 
-#include "gamebuilder.h"
+#include "level.h"
+#include "stickman.h"
+#include <QJsonObject>
 
 /**
  * @brief The Mario class

@@ -5,6 +5,7 @@ Mario::Mario(const QJsonObject& parser)
 
 void Mario::buildStickman()
 {
+    //Convert size string to SizeType enum
     SizeType size;
     std::string sizeString = m_parser["size"].toString().toStdString();
     if(sizeString == "tiny") size = SizeType::TINY;

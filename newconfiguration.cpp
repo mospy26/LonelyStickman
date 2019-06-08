@@ -2,6 +2,7 @@
 #include <memory>
 NewConfiguration::NewConfiguration(QWidget *parent)
     : QDialog(parent),
+      m_mainLabel(new QLabel(this)),
       m_successLoad(new QLabel(this)),
       m_playButton(new QPushButton("Play", this)),
       m_loadConfiguration(new QPushButton("Load Game", this)),
@@ -33,6 +34,12 @@ NewConfiguration::~NewConfiguration()
 
 void NewConfiguration::loadObjects()
 {
+    //Main menu text
+    QFont font("Arial", 40, QFont::Bold);
+    m_mainLabel->setFont(font);
+    m_mainLabel->setText("Stickman Game");
+    m_mainLabel->setGeometry(350, 100, 300, 100);
+
     //tooltips
     m_loadConfiguration->setToolTip("Load a game configuration");
     m_saveConfiguration->setToolTip("Save a game configuration");
@@ -65,6 +72,8 @@ void NewConfiguration::clickedLoadConfiguration()
             file.errorString());
             return;
         }
+
+        //Check validity
         try {
             parseConfigFile(file.fileName());
         } catch(const char* error) {
@@ -78,6 +87,8 @@ void NewConfiguration::clickedLoadConfiguration()
             m_playButton->hide();
             return;
         }
+
+        //Set play button if everything is good
         setPlayButton();
         connect(&(*m_playButton), SIGNAL(released()), this, SLOT(play()));
     }
@@ -105,20 +116,45 @@ void NewConfiguration::parseConfigFile(const QString &filepath)
     file.open(QIODevice::ReadOnly);
 
     QJsonDocument configFile(QJsonDocument::fromJson(file.readAll()));
+
+    if(configFile.isNull()) {
+        throw "Error in JSON file! (Check missing braces or key/value pairs?)";
+    }
+
     file.close();
     m_parser = new QJsonObject(configFile.object());
+
+    if(!m_parser->contains("size") ||
+            !m_parser->contains("initialX") ||
+            !m_parser->contains("initialVelocity") ||
+            !m_parser->contains("background") ||
+            !m_parser->contains("music"))
+        throw "Invalid config file - Missing configurations";
+
+    //Check if initial X and initial Velocity can be parsed to integers
+    bool ok = true;
+    (*m_parser)["initialX"].toString().toInt(&ok);
+    if(!ok) throw "Initial X is not an integer";
+
+    ok = true;
+    (*m_parser)["initialVelocity"].toString().toInt(&ok);
+    if(!ok) throw "Initial Velocity is not integer";
 
     if((*m_parser)["size"].toString() == nullptr || ((*m_parser)["size"].toString() != "tiny"
                                                 && (*m_parser)["size"].toString() != "normal"
                                                 && (*m_parser)["size"].toString() != "large"
                                                 && (*m_parser)["size"].toString() != "giant"))
         throw "size not stated";
+
     if((*m_parser)["initialX"].toString() == nullptr || (*m_parser)["initialX"].toString() == "")
         throw "initialX not stated";
+
     if((*m_parser)["initialVelocity"].toString() == nullptr || (*m_parser)["initialVelocity"].toString()  == "")
         throw "initial velocity not stated";
+
     if((*m_parser)["background"].toString() == nullptr || (*m_parser)["background"].toString() == "")
         throw "background not stated";
+
     if((*m_parser)["music"].toString() == nullptr || (*m_parser)["music"].toString() == "")
         throw "music not stated";
 
@@ -129,6 +165,7 @@ void NewConfiguration::parseConfigFile(const QString &filepath)
 
 void NewConfiguration::play()
 {
+    //Builder and director creates the level
     Mario mario(*m_parser);
     MarioCreator marioCreator(&mario);
     Level* level = marioCreator.create();

@@ -39,13 +39,6 @@ public:
     Stickman(enum SizeType size, int X, int Y = 0);
 
     /**
-     * @brief Stickman
-     * @param other
-     * Move contructor
-     */
-    Stickman(Stickman&& other);
-
-    /**
      * @brief operator =
      * @param other
      * @return the current stickman object to which the contents are moved to

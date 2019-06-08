@@ -37,36 +37,17 @@ Level::Level(Stickman* stickman, const QString& backgroundLocation, int screenVe
   //Move the contents from the given stickman to level's
   *m_stickman = std::move(*stickman);
 
-  //Load background and image from their respective paths
-  QDir musicPath = QDir::currentPath();
-  QDir imagePath = QDir::currentPath();
-
-  musicPath.cd("../../../../LonelyStickman/music");
-  imagePath.cd("../../../../LonelyStickman/img");
-
-  m_background = new QImage(imagePath.path().append("/" + backgroundLocation));
+  //Load the background image
+  m_background = new QImage(":/img/" + backgroundLocation);
 
   //Add music to the playlist for "repeating"
-  this->m_playlist->addMedia(QUrl::fromLocalFile(musicPath.path().append("/" + musicLocation)));
+  this->m_playlist->addMedia(QUrl("qrc:/music/" + musicLocation));
   this->m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
   m_music->setPlaylist(m_playlist);
 
   //Place the stickman on the ground
   m_stickman->setYPosition(this->m_frameHeight - this->m_floorBase - m_stickman->getImageHeight());
 }
-
-//Level::Level(Level&& other)
-//    : m_background(other.m_background),
-//      m_screenVelocity(other.m_screenVelocity),
-//      m_stickman(std::move(other.m_stickman)),
-//      m_playlist(other.m_playlist),
-//      m_music(other.m_music)
-//{
-//    other.m_background = nullptr;
-//    other.m_stickman = nullptr;
-//    other.m_music = nullptr;
-//    other.m_playlist = nullptr;
-//}
 
 Level& Level::operator =(Level&& other)
 {

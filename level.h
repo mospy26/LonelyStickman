@@ -46,13 +46,6 @@ public:
     ~Level();
 
     /**
-     * @brief Level
-     * @param other
-     * Move constructor for Level
-     */
-    Level(Level&& other);
-
-    /**
      * @brief operator =
      * @param other
      * @return level object to which contents of another level object were moved to
